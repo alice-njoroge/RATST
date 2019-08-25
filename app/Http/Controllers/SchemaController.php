@@ -57,11 +57,13 @@ class SchemaController extends Controller
 
     /**
      * @param Request $request
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function process_step_two(Request $request)
     {
         $this->validate($request, [
-            'attributes.*.name' => 'unique:schema_attributes,name'
+            'attributes.*.name' => 'required|unique:schema_attributes,name',
+            'attributes.*.type' => 'required|string',
         ]);
     }
 

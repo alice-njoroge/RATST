@@ -38,10 +38,10 @@
                     @foreach(range(1, $schema->number_of_attributes) as  $i)
                         <tr>
                             <th>
-                                <input type="text" class="form-control" name="attributes[]['name']">
+                                <input type="text" class="form-control" name="attributes[{{$i}}][name]" value="{{old('attributes.'.$i.'.name')}}">
                             </th>
                             <td>
-                                <select class="form-control" name="attributes[{{$i}}]['type']">
+                                <select class="form-control" name="attributes[{{$i}}][type]">
                                     <option value="int">int</option>
                                     <option value="float">float</option>
                                     <option value="date">date</option>
@@ -52,17 +52,17 @@
                                     <option value="text">text</option>
                                 </select>
                             </td>
-                            <td><input type="number" class="form-control" name="attributes[{{$i}}]['size']">
+                            <td><input type="number" class="form-control" name="attributes[{{$i}}][size]">
                             </td>
                             <td>
-                                <input type="checkbox" class="form-check-input ml-3" name="attributes[{{$i}}]['null']">
+                                <input type="checkbox" class="form-check-input ml-3" name="attributes[{{$i}}][null]">
                             </td>
                             <td>
-                                <input type="checkbox" class="form-check-input ml-3" name="attributes[{{$i}}]['index']">
+                                <input type="checkbox" class="form-check-input ml-3" name="attributes[{{$i}}][index]">
                             </td>
                             <td>
                                 <input type="checkbox" class="form-check-input ml-3"
-                                       name="attributes[{{$i}}]['primary_key']">
+                                       name="attributes[{{$i}}][primary_key]">
                             </td>
                         </tr>
                     @endforeach
