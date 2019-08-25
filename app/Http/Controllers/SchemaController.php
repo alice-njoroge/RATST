@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Schema;
+use App\SchemaAttribute;
 use Illuminate\Http\Request;
 
 class SchemaController extends Controller
@@ -85,8 +86,14 @@ class SchemaController extends Controller
             flash($message)->error();
             return redirect()->back()->withInput($request->all());
         }
-        foreach ($request->input('attributes')) {
+        $data = [];
+        foreach ($attributes as $attribute) {
+            $attribute['schema_id'] = (int)$request->input('schema_id');
+            $attribute['size'] = (int)$attribute['size'];
+            array_push($data, $attribute);
         }
+        SchemaAttribute::insert($data);
+        return redirect('/');
     }
 
 
@@ -101,5 +108,9 @@ class SchemaController extends Controller
         $schema->delete();
         flash('schema deleted successfully')->success();
         return redirect()->back();
+    }
+
+    public function parse_to_sql(Schema $schema){
+
     }
 }
