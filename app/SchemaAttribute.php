@@ -21,6 +21,16 @@ class SchemaAttribute extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'null' => 'boolean',
+        'index' => 'boolean',
+        'primary_key' => 'boolean',
+    ];
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function schema()

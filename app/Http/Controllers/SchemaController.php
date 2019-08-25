@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Schema;
 use App\SchemaAttribute;
+use DB;
 use Illuminate\Http\Request;
 
 class SchemaController extends Controller
@@ -90,9 +91,14 @@ class SchemaController extends Controller
         foreach ($attributes as $attribute) {
             $attribute['schema_id'] = (int)$request->input('schema_id');
             $attribute['size'] = (int)$attribute['size'];
+            $attribute['null'] = array_key_exists('null', $attribute) ? 1 : 0;
+            $attribute['index'] = array_key_exists('index', $attribute) ? 1 : 0;
+            $attribute['primary_key'] = array_key_exists('primary_key', $attribute) ? 1 : 0;
             array_push($data, $attribute);
         }
         SchemaAttribute::insert($data);
+        $schema = Schema::find($request->input('schema_id'));
+        $this->parse_to_sql($schema);
         return redirect('/');
     }
 
@@ -110,7 +116,37 @@ class SchemaController extends Controller
         return redirect()->back();
     }
 
-    public function parse_to_sql(Schema $schema){
+    public function parse_to_sql(Schema $schema)
+    {
+        $index=1;
+        $sql_statement = "create table if not exists " . $schema->name . "(";
+        foreach ($schema->attributes as $attribute) {
+            $sql_statement = $sql_statement . $attribute->name . ' ' . $attribute->type;
+            if ($attribute->size > 0) {
+                $sql_statement = $sql_statement . '(' . $attribute->size . ')';
+            }
+            if ($attribute->null) {
+                $sql_statement = $sql_statement . ' null';
+            } else {
+                $sql_statement = $sql_statement . ' not null';
+            }
+            if ($attribute->primary_key) {
+                $sql_statement = $sql_statement . ' primary key';
+            }
+            if ($schema->number_of_attributes != $index) {
+                $sql_statement = $sql_statement . ',';
+            }
 
+            $index++;
+        }
+        $sql_statement = $sql_statement . ');';
+        DB::statement($sql_statement);
+        foreach ($schema->attributes as $attribute) {
+            if ($attribute->index) {
+                $index_statements = 'create index ';
+                $index_statements = $index_statements . $attribute->name . ' on ' . $schema->name . '(' . $attribute->name . ');';
+                DB::statement($index_statements);
+            }
+        }
     }
 }
