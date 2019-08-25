@@ -19,4 +19,12 @@ class SchemaAttribute extends Model
         'primary_key',
         'schema_id'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function schema()
+    {
+        return $this->belongsTo('App\Schema');
+    }
 }

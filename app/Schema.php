@@ -10,4 +10,12 @@ class Schema extends Model
         'name',
         'number_of_attributes'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attributes()
+    {
+        return $this->hasMany('App\SchemaAttribute');
+    }
 }
