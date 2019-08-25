@@ -65,6 +65,28 @@ class SchemaController extends Controller
             'attributes.*.name' => 'required|unique:schema_attributes,name',
             'attributes.*.type' => 'required|string',
         ]);
+        $attributes = collect($request->input('attributes'));
+        $names = $attributes->map(function ($item, $key) {
+            return $item['name'];
+        });
+        $unique_names = array_unique($names->toArray()); // get unique names
+        $duplicate_keys_assoc = array_diff_assoc($names->toArray(), $unique_names); // differentiate main array from the unique array
+        $duplicate_names = array_values($duplicate_keys_assoc); // remove the names from the associative array
+        if (sizeof($duplicate_names) > 0) { // message formatting using commas where duplicates are more than one
+            $message = '';
+            foreach ($duplicate_names as $key => $value) {
+                if ($key == 0) {
+                    $message = $value;
+                } else {
+                    $message = $message . ',' . $value;
+                }
+            }
+            $message = $message . ' are duplicates. Please fix this';
+            flash($message)->error();
+            return redirect()->back()->withInput($request->all());
+        }
+        foreach ($request->input('attributes')) {
+        }
     }
 
 
