@@ -23,9 +23,10 @@ class CreateSchemaAttributesTable extends Migration
             $table->boolean('primary_key')->default(0);
             $table->unsignedBigInteger('schema_id');
 
-            $table->foreign('schema_id')->on('schemas')->references('id');
+            $table->foreign('schema_id')->on('schemas')->references('id')->onDelete('cascade');
             $table->timestamps();
         });
+
     }
 
     /**

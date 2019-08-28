@@ -3,8 +3,8 @@
 @section('title', 'Schemas')
 @section('top-content')
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h3 class="display-4">Design your schema</h3>
-        <p class="lead">Quickly design your schema to use</p>
+        <h6 class="display-4">Available Designs </h6>
+        <p class="lead">Click the green button below to  design your schema</p>
     </div>
 @endsection
 @section('main-content')
