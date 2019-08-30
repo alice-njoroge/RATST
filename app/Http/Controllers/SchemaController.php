@@ -6,6 +6,7 @@ use App\Schema;
 use App\SchemaAttribute;
 use DB;
 use Illuminate\Http\Request;
+use PDO;
 
 class SchemaController extends Controller
 {
@@ -15,7 +16,7 @@ class SchemaController extends Controller
      */
     public function index()
     {
-        $schemas = Schema::all();
+        $schemas = DB::select('SHOW TABLES');
         return view('welcome', ['schemas' => $schemas]);
     }
 
@@ -118,7 +119,7 @@ class SchemaController extends Controller
 
     public function parse_to_sql(Schema $schema)
     {
-        $index=1;
+        $index = 1;
         $sql_statement = "create table if not exists " . $schema->name . "(";
         foreach ($schema->attributes as $attribute) {
             $sql_statement = $sql_statement . $attribute->name . ' ' . $attribute->type;
