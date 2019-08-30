@@ -12,6 +12,8 @@
 */
 
 Route::get('/', 'SchemaController@index');
+Route::get('/slqdump', 'SqlImportController@index')->name('import');
+Route::post('/slqdump', 'SqlImportController@upload_file')->name('upload');
 Route::get('schema/remove/{schema}', 'SchemaController@remove')->name('remove-schema');
 Route::get('schema/add/step1', 'SchemaController@add_schema_step_one_view')->name('add-schema-step-1');
 Route::get('schema/add/step2/{schema}', 'SchemaController@add_schema_step_two_view')->name('add-schema-step-2');
