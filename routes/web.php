@@ -17,3 +17,5 @@ Route::get('schema/add/step1', 'SchemaController@add_schema_step_one_view')->nam
 Route::get('schema/add/step2/{schema}', 'SchemaController@add_schema_step_two_view')->name('add-schema-step-2');
 Route::post('schema/add/step1', 'SchemaController@process_step_one')->name('process-step-1');
 Route::post('schema/add/step2', 'SchemaController@process_step_two')->name('process-step-2');
+
+Route::get('/feed-data/{schema}', 'FeedDataController@index')->name('feed-data');

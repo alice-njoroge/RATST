@@ -28,7 +28,7 @@
                         <td>{{$schema->name}}</td>
                         <td>{{$schema->number_of_attributes}}</td>
                         <td>
-                            <a href="#" class="btn btn-outline-success btn-sm mr-1">feed data</a>
+                            <a href="{{route('feed-data', $schema->id)}}" class="btn btn-outline-success btn-sm mr-1">feed data</a>
                             <a href="#" class="btn btn-outline-info btn-sm mr-1">update</a>
                             <a href="{{route('remove-schema', $schema->id)}}"
                                class="btn btn-outline-danger btn-sm mr-1">remove</a>
