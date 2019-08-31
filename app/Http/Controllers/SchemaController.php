@@ -10,6 +10,25 @@ use PDO;
 
 class SchemaController extends Controller
 {
+    public function schema_fields()
+    {
+        $data = [];
+        $schemas = DB::select('SHOW TABLES');
+        foreach ($schemas as $schema) {
+            if ($schema->Tables_in_ratsql != 'migrations' && $schema->Tables_in_ratsql != 'users' && $schema->Tables_in_ratsql != 'password_resets' && $schema->Tables_in_ratsql != 'schema_attributes' && $schema->Tables_in_ratsql != 'schemas') {
+                $inside_data = [];
+                $columns = DB::select('SHOW FIELDS FROM ' . $schema->Tables_in_ratsql);
+                foreach ($columns as $column) {
+                    $data_to_push = ['field' => $column->Field, 'type' => $column->Type];
+                    array_push($inside_data, $data_to_push);
+                }
+                $outside_data_to_push = ['table' => $schema->Tables_in_ratsql, 'columns' => $inside_data];
+                array_push($data, $outside_data_to_push);
+            }
+        }
+        return response()->json($data);
+    }
+
     /**
      * List the schemas
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'SchemaController@index');
+Route::get('/database/tables_fields', 'SchemaController@schema_fields');
 Route::get('/slqdump', 'SqlImportController@index')->name('import');
 Route::post('/slqdump', 'SqlImportController@upload_file')->name('upload');
 Route::get('schema/remove/{schema}', 'SchemaController@remove')->name('remove-schema');
