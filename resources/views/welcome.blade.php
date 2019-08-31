@@ -24,18 +24,18 @@
                 <tbody>
                 @foreach($schemas as $schema)
                     <tr>
-                        <th scope="row">{{$loop->iteration}}</th>
-                        @if($schema->Tables_in_ratsql != 'users' || $schema->Tables_in_ratsql != 'migrations' || $schema->Tables_in_ratsql != 'password_resets')
+                        @if($schema->Tables_in_ratsql != 'migrations' && $schema->Tables_in_ratsql != 'users' && $schema->Tables_in_ratsql != 'password_resets')
+                            <th scope="row">{{$loop->iteration}}</th>
                             <td>{{$schema->Tables_in_ratsql}}</td>
+                            <td>
+                                <a href="{{route('feed-data', $schema->Tables_in_ratsql)}}"
+                                   class="btn btn-outline-success btn-sm mr-1">feed
+                                    data</a>
+                                <a href="#" class="btn btn-outline-info btn-sm mr-1">update</a>
+                                <a href="{{route('remove-schema', $schema->Tables_in_ratsql)}}"
+                                   class="btn btn-outline-danger btn-sm mr-1">remove</a>
+                            </td>
                         @endif
-                        <td>
-                            <a href="{{route('feed-data', $schema->Tables_in_ratsql)}}"
-                               class="btn btn-outline-success btn-sm mr-1">feed
-                                data</a>
-                            <a href="#" class="btn btn-outline-info btn-sm mr-1">update</a>
-                            <a href="{{route('remove-schema', $schema->Tables_in_ratsql)}}"
-                               class="btn btn-outline-danger btn-sm mr-1">remove</a>
-                        </td>
                     </tr>
                 @endforeach
                 @if(empty($schema))
