@@ -18,7 +18,7 @@
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="#">Key in data</a>
             <a class="p-2 text-dark" href="{{route('import')}}">Import from SQL dump </a>
-            <a class="p-2 text-dark" href="#">Import from Excel</a>
+            <a class="p-2 text-dark" href="{{route('import_from_excel')}}">Import from Excel</a>
             <a class="p-2 text-dark" href="#">use auto-generated relations</a>
         </nav>
     </div>

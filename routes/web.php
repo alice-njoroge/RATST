@@ -12,6 +12,8 @@
 */
 
 Route::get('/', 'SchemaController@index');
+Route::get('/import-from-excel', 'ImportFromExcellController@index')->name('import_from_excel');
+Route::post('/import-from-excel', 'ImportFromExcellController@process_excel_file')->name('process_excel_file');
 Route::get('/database/tables_fields', 'SchemaController@schema_fields');
 Route::get('/slqdump', 'SqlImportController@index')->name('import');
 Route::post('/slqdump', 'SqlImportController@upload_file')->name('upload');
