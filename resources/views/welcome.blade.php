@@ -8,6 +8,9 @@
     </div>
 @endsection
 @section('main-content')
+    @php
+        $key = "Tables_in_" . env('DB_DATABASE');
+    @endphp
     <div class="card">
         <div class="card-body">
             <h2 class="card-title text-center">Schemas</h2>
@@ -24,15 +27,15 @@
                 <tbody>
                 @foreach($schemas as $schema)
                     <tr>
-                        @if($schema->Tables_in_ratsql != 'migrations' && $schema->Tables_in_ratsql != 'users' && $schema->Tables_in_ratsql != 'password_resets')
+                        @if($schema->$key != 'migrations' && $schema->$key != 'users' && $schema->$key != 'password_resets')
                             <th scope="row">{{$loop->iteration}}</th>
-                            <td>{{$schema->Tables_in_ratsql}}</td>
+                            <td>{{$schema->$key}}</td>
                             <td>
-                                <a href="{{route('feed-data', $schema->Tables_in_ratsql)}}"
+                                <a href="{{route('feed-data', $schema->$key)}}"
                                    class="btn btn-outline-success btn-sm mr-1">feed
                                     data</a>
                                 <a href="#" class="btn btn-outline-info btn-sm mr-1">update</a>
-                                <a href="{{route('remove-schema', $schema->Tables_in_ratsql)}}"
+                                <a href="{{route('remove-schema', $schema->$key)}}"
                                    class="btn btn-outline-danger btn-sm mr-1">remove</a>
                             </td>
                         @endif

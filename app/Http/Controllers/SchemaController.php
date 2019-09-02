@@ -10,19 +10,24 @@ use PDO;
 
 class SchemaController extends Controller
 {
+    /**
+     * return a json endpoint of tables and their column names and types
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function schema_fields()
     {
+        $key = "Tables_in_" . env('DB_DATABASE');
         $data = [];
         $schemas = DB::select('SHOW TABLES');
         foreach ($schemas as $schema) {
-            if ($schema->Tables_in_ratsql != 'migrations' && $schema->Tables_in_ratsql != 'users' && $schema->Tables_in_ratsql != 'password_resets' && $schema->Tables_in_ratsql != 'schema_attributes' && $schema->Tables_in_ratsql != 'schemas') {
+            if ($schema->$key != 'migrations' && $schema->$key != 'users' && $schema->$key != 'password_resets' && $schema->$key != 'schema_attributes' && $schema->$key != 'schemas') {
                 $inside_data = [];
-                $columns = DB::select('SHOW FIELDS FROM ' . $schema->Tables_in_ratsql);
+                $columns = DB::select('SHOW FIELDS FROM ' . $schema->$key);
                 foreach ($columns as $column) {
                     $data_to_push = ['field' => $column->Field, 'type' => $column->Type];
-                    array_push($inside_data, $data_to_push);
+                    array_push($inside_data, $data_to_push); // call by reference because they are stacks in the  background
                 }
-                $outside_data_to_push = ['table' => $schema->Tables_in_ratsql, 'columns' => $inside_data];
+                $outside_data_to_push = ['table' => $schema->$key, 'columns' => $inside_data];
                 array_push($data, $outside_data_to_push);
             }
         }
