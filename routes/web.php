@@ -14,7 +14,6 @@
 Route::get('/', 'SchemaController@index');
 Route::get('/import-from-excel', 'ImportFromExcellController@index')->name('import_from_excel');
 Route::post('/import-from-excel', 'ImportFromExcellController@process_excel_file')->name('process_excel_file');
-Route::get('/database/tables_fields', 'SchemaController@schema_fields');
 Route::get('/slqdump', 'SqlImportController@index')->name('import');
 Route::post('/slqdump', 'SqlImportController@upload_file')->name('upload');
 Route::get('schema/remove/{schema}', 'SchemaController@remove')->name('remove-schema');
@@ -26,3 +25,4 @@ Route::post('schema/add/step2', 'SchemaController@process_step_two')->name('proc
 Route::get('/feed-data/{schema}', 'FeedDataController@index')->name('feed-data');
 Route::get('/parser', 'ParserController@index')->name('parser');
 Route::get('/databases', 'SchemaController@list_databases')->name('databases');
+Route::get('/databases/tables_fields/{database}', 'SchemaController@schema_fields');
