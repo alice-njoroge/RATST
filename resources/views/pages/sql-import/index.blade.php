@@ -25,6 +25,10 @@
                     <form enctype="multipart/form-data" novalidate action="{{route('upload')}}" method="post">
                         @csrf
                         <div class="form-group">
+                            <label for="provide_database">Database Name</label>
+                            <input type="text" name="database" class="form-control" id="provide_database" placeholder="Provide Database Name">
+                        </div>
+                        <div class="form-group">
                             <label for="exampleFormControlFile1">choose file from my computer </label>
                             <input type="file" class="form-control-file" id="exampleFormControlFile1" name="sql_file">
                         </div>

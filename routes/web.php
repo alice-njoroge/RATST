@@ -24,3 +24,4 @@ Route::post('schema/add/step1', 'SchemaController@process_step_one')->name('proc
 Route::post('schema/add/step2', 'SchemaController@process_step_two')->name('process-step-2');
 
 Route::get('/feed-data/{schema}', 'FeedDataController@index')->name('feed-data');
+Route::get('parser', 'ParserController@index')->name('parser');
