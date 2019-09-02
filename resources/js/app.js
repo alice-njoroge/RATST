@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('feed-data', require('./components/FeedData.vue').default);
+Vue.component('databases', require('./components/Databases.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
