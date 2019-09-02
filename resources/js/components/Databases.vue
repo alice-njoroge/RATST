@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p v-for="item in database_list"><a href="#">{{item.database}}</a></p>
+        <p v-for="item in database_list"><a :href="'/parser/' + item.database">{{item.database}}</a></p>
     </div>
 </template>
 <script>

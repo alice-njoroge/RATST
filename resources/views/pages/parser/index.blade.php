@@ -37,9 +37,10 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <hr>
+    <div class="row mt-3">
         <div class="col-md-3">
-
+            <tables database_name="{{$database}}"></tables>
         </div>
     </div>
 @endsection

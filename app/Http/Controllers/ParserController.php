@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class ParserController extends Controller
 {
-    public function index()
+    public function index($database = 'themepark')
     {
-        return view('pages.parser.index');
+        return view('pages.parser.index', ['database' => $database]);
     }
 }
