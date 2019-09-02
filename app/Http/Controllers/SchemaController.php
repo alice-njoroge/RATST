@@ -10,6 +10,18 @@ use PDO;
 
 class SchemaController extends Controller
 {
+    public function list_databases()
+    {
+        $data = [];
+        $databases = DB::select('show databases');
+        foreach ($databases as $database) {
+            if ($database->Database != 'mysql' && $database->Database != 'sys' && $database->Database != 'information_schema' && $database->Database != 'performance_schema') {
+                array_push($data, ['database' => $database->Database]);
+            }
+        }
+        return response()->json($data);
+    }
+
     /**
      * return a json endpoint of tables and their column names and types
      * @return \Illuminate\Http\JsonResponse
