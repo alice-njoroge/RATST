@@ -37515,26 +37515,15 @@ var render = function() {
                 _c("br"),
                 _vm._v(" "),
                 _vm._l(item.columns, function(column) {
-                  return _c(
-                    "span",
-                    {
-                      staticClass: "ml-2",
-                      attrs: {
-                        "data-toggle": "tooltip",
-                        "data-placement": "right",
-                        title: "Tooltip on right"
-                      }
-                    },
-                    [
-                      _vm._v(
-                        _vm._s(column.field) +
-                          " -  " +
-                          _vm._s(column.type) +
-                          "\n            "
-                      ),
-                      _c("hr", { staticStyle: { "border-style": "dotted" } })
-                    ]
-                  )
+                  return _c("span", { staticClass: "ml-2" }, [
+                    _vm._v(
+                      _vm._s(column.field) +
+                        " -  " +
+                        _vm._s(column.type) +
+                        "\n            "
+                    ),
+                    _c("hr", { staticStyle: { "border-style": "dotted" } })
+                  ])
                 })
               ],
               2

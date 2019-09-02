@@ -4,9 +4,9 @@
             <div class="card-text">
                 <p>Database:<b> {{database_name}}</b></p>
                 <p><u><b>Tables</b></u></p>
-                <p class="ml-1" v-for="item in tables" ><b>{{item.table}}</b>
+                <p class="ml-1" v-for="item in tables"><b>{{item.table}}</b>
                     <br/>
-                    <span class="ml-2" v-for="column in item.columns" data-toggle="tooltip" data-placement="right" title="Tooltip on right">{{column.field}} -  {{column.type}}
+                    <span class="ml-2" v-for="column in item.columns">{{column.field}} -  {{column.type}}
                 <hr style="border-style: dotted;"/>
 
             </span></p>
