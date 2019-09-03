@@ -1,6 +1,17 @@
 @extends('layouts.main')
 
 @section('title', 'Parser')
+@push('styles')
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 55px;
+            right: 0;
+            bottom: 2500px;
+            left: 0;
+        }
+    </style>
+@endpush
 @section('main-content')
     <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#dataset">
         Choose Dataset
@@ -42,5 +53,58 @@
         <div class="col-md-3">
             <tables database_name="{{$database}}"></tables>
         </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body" style="padding: 0.25rem">
+                    <div class="card-text">
+                        |<span style="cursor: pointer;padding: 0 10px 0 10px">Π </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px">σ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px">ρ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px">X </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px">U </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px">- </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px">∩ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px">⋈ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px">θ </span>|
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div id="editor">σ topic = "Database" and author = "guru99"( Tutorials)
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Help</h4>
+                    <hr/>
+                    <b>Projection, Π</b>
+                    <p>A projection is a unary operation written as {\displaystyle \Pi _{a_{1},\ldots ,a_{n}}(R)}
+                        \Pi_{a_1, \ldots,a_n}( R ) where {\displaystyle a_{1},\ldots ,a_{n}} a_1,\ldots,a_n is a set of
+                        attribute names. The result of such projection is defined as the set that is obtained when all
+                        tuples in R are restricted to the set {\displaystyle \{a_{1},\ldots ,a_{n}\}} \{a_{1},\ldots
+                        ,a_{n}\}.
+
+                        Note: when implemented in SQL standard the "default projection" returns a multiset instead of a
+                        set, and the Π projection is obtained by the addition of the DISTINCT keyword to eliminate
+                        duplicate data.</p>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
+@push('scripts')
+    <script src="{{asset('ace-builds-master/src-min-noconflict/ace.js')}}" type="text/javascript"
+            charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setOptions({
+            autoScrollEditorIntoView: true,
+            copyWithEmptySelection: true,
+        });
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/text");
+
+    </script>
+@endpush
+

@@ -9,6 +9,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
+    @stack('styles')
 
 </head>
 <body>
@@ -44,5 +45,6 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
 </script>
+@stack('scripts')
 </body>
 </html>

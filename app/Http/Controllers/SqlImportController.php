@@ -50,6 +50,5 @@ class SqlImportController extends Controller
         flash('SQL imported successfully')->success();
         return redirect('/');
 
-
     }
 }
