@@ -7,7 +7,7 @@
             position: absolute;
             top: 55px;
             right: 0;
-            bottom: 2500px;
+            bottom: 0;
             left: 0;
         }
     </style>
