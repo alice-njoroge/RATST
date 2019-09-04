@@ -6,7 +6,7 @@
                 <p><u><b>Tables</b></u></p>
                 <p class="ml-1" v-for="item in tables"><b>{{item.table}}</b>
                     <br/>
-                    <span class="ml-2" v-for="column in item.columns">{{column.field}} -  {{column.type}}
+                    <span class="ml-2" style="cursor: pointer" v-for="column in item.columns">{{column.field}} -  {{column.type}}
                 <hr style="border-style: dotted;"/>
 
             </span></p>
