@@ -26,7 +26,7 @@
     </div>
 
     @yield('top-content')
-    <div class="container">
+    <div class="{{isset($container_fluid) && $container_fluid == true ? 'container-fluid' : 'container'}}">
         @include('flash::message')
         @yield('main-content')
         <footer class="pt-4 my-md-5 pt-md-5 border-top">

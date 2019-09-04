@@ -4,11 +4,8 @@
 @push('styles')
     <style type="text/css" media="screen">
         #editor {
-            position: absolute;
-            top: 55px;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            height: 400px;
+            width: auto;
         }
     </style>
 @endpush

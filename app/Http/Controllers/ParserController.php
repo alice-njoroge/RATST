@@ -8,6 +8,6 @@ class ParserController extends Controller
 {
     public function index($database = 'themepark')
     {
-        return view('pages.parser.index', ['database' => $database]);
+        return view('pages.parser.index', ['database' => $database, 'container_fluid' => true]);
     }
 }
