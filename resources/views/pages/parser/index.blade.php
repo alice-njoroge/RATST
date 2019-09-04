@@ -67,7 +67,7 @@
                 </div>
             </div>
             <br>
-            <div id="editor">σ topic = "Database" and author = "guru99"( Tutorials)
+            <div id="editor">σ field = "filter" Π field (schema)
             </div>
         </div>
         <div class="col-md-3">
