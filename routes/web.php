@@ -23,6 +23,8 @@ Route::post('schema/add/step1', 'SchemaController@process_step_one')->name('proc
 Route::post('schema/add/step2', 'SchemaController@process_step_two')->name('process-step-2');
 
 Route::get('/feed-data/{schema}', 'FeedDataController@index')->name('feed-data');
-Route::get('/{database?}', 'ParserController@index')->name('parser');
 Route::get('/databases', 'SchemaController@list_databases')->name('databases');
 Route::get('/databases/tables_fields/{database}', 'SchemaController@schema_fields');
+
+// this line must be last
+Route::get('/{database?}', 'ParserController@index')->name('parser');

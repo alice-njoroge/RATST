@@ -1843,6 +1843,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Databases',
   data: function data() {
@@ -1850,15 +1851,18 @@ __webpack_require__.r(__webpack_exports__);
       database_list: []
     };
   },
+  // http client axios to access urls
   created: function created() {
     var _this = this;
 
     axios({
       'method': 'get',
       'url': '/databases'
-    }).then(function (res) {
+    }) // asynchronuous processing working on promises to return data
+    .then(function (res) {
       return _this.database_list = res.data;
-    })["catch"](function (error) {
+    }) // funtion takes the response as an argument and returns in in the internal variable database_list
+    ["catch"](function (error) {
       console.log(error);
     });
   }
@@ -2002,7 +2006,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ['database_name'],
   data: function data() {
     return {
-      tables: []
+      tables: [],
+      error: null
     };
   },
   created: function created() {
@@ -2014,7 +2019,9 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function (res) {
       return _this.tables = res.data;
     })["catch"](function (error) {
-      return console.log(error);
+      if (error.response.status === 400) {
+        _this.error = error.response.data.message;
+      }
     });
   }
 });
@@ -37319,7 +37326,7 @@ var render = function() {
     "div",
     _vm._l(_vm.database_list, function(item) {
       return _c("p", [
-        _c("a", { attrs: { href: "/parser/" + item.database } }, [
+        _c("a", { attrs: { href: "/" + item.database } }, [
           _vm._v(_vm._s(item.database))
         ])
       ])

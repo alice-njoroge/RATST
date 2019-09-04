@@ -9,7 +9,7 @@
                     <span class="ml-2" style="cursor: pointer" v-for="column in item.columns">{{column.field}} -  {{column.type}}
                 <hr style="border-style: dotted;"/>
 
-            </span></p>
+                    </span></p>
             </div>
         </div>
     </div>
@@ -19,7 +19,8 @@
         props: ['database_name'],
         data() {
             return {
-                tables: []
+                tables: [],
+                error: null
             }
         },
         created() {
@@ -28,7 +29,11 @@
                 'url': '/databases/tables_fields/' + this.database_name
             })
                 .then(res => this.tables = res.data)
-                .catch(error => console.log(error));
+                .catch(error => {
+                    if (error.response.status === 400) {
+                        this.error = error.response.data.message
+                    }
+                });
         }
     }
 </script>

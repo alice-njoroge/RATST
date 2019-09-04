@@ -61,7 +61,11 @@ class SchemaController extends Controller
     {
         $key = "Tables_in_" . $database; // object method for the database
         $data = [];
-        $pdo = $this->get_pdo($database);
+        try {
+            $pdo = $this->get_pdo($database);
+        } catch (\PDOException $e) {
+            return response()->json(['message' => 'the database not found. select another database'], 400);
+        }
         $statement = $pdo->prepare('show tables');
         $statement->execute();
         $schemas = $statement->fetchAll(PDO::FETCH_OBJ);
