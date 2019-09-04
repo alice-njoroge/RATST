@@ -10,6 +10,9 @@ use PDO;
 
 class SchemaController extends Controller
 {
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function list_databases()
     {
         $data = [];
@@ -56,7 +59,7 @@ class SchemaController extends Controller
      */
     public function schema_fields($database)
     {
-        $key = "Tables_in_" . $database;
+        $key = "Tables_in_" . $database; // object method for the database
         $data = [];
         $pdo = $this->get_pdo($database);
         $statement = $pdo->prepare('show tables');
