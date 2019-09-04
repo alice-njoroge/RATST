@@ -18,7 +18,6 @@
         <h5 class="my-0 mr-md-auto font-weight-normal">RATSQL</h5>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="{{route('parser')}}">Parser</a>
-            <a class="p-2 text-dark" href="/">Use auto-generated relations</a>
             <a class="p-2 text-dark" href="{{route('add-schema-step-1')}}">Key in data</a>
             <a class="p-2 text-dark" href="{{route('import')}}">Import from SQL dump </a>
             <a class="p-2 text-dark" href="{{route('import_from_excel')}}">Import from Excel</a>

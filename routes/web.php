@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'SchemaController@index');
+Route::get('/schemas', 'SchemaController@index')->name('schema_index');
 Route::get('/import-from-excel', 'ImportFromExcellController@index')->name('import_from_excel');
 Route::post('/import-from-excel', 'ImportFromExcellController@process_excel_file')->name('process_excel_file');
 Route::get('/slqdump', 'SqlImportController@index')->name('import');
@@ -23,6 +23,6 @@ Route::post('schema/add/step1', 'SchemaController@process_step_one')->name('proc
 Route::post('schema/add/step2', 'SchemaController@process_step_two')->name('process-step-2');
 
 Route::get('/feed-data/{schema}', 'FeedDataController@index')->name('feed-data');
-Route::get('/parser/{database?}', 'ParserController@index')->name('parser');
+Route::get('/{database?}', 'ParserController@index')->name('parser');
 Route::get('/databases', 'SchemaController@list_databases')->name('databases');
 Route::get('/databases/tables_fields/{database}', 'SchemaController@schema_fields');
