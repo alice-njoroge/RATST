@@ -86,7 +86,7 @@ class SchemaController extends Controller
      */
     public function index()
     {
-        $schemas = DB::select('SHOW TABLES');
+        $schemas = Schema::all();
         return view('welcome', ['schemas' => $schemas]);
     }
 

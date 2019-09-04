@@ -27,15 +27,15 @@
                 <tbody>
                 @foreach($schemas as $schema)
                     <tr>
-                        @if($schema->$key != 'migrations' && $schema->$key != 'users' && $schema->$key != 'password_resets')
+                        @if($schema->name != 'migrations' && $schema->name != 'users' && $schema->name != 'password_resets')
                             <th scope="row">{{$loop->iteration}}</th>
-                            <td>{{$schema->$key}}</td>
+                            <td>{{$schema->name}}</td>
                             <td>
-                                <a href="{{route('feed-data', $schema->$key)}}"
+                                <a href="{{route('feed-data', $schema->id)}}"
                                    class="btn btn-outline-success btn-sm mr-1">feed
                                     data</a>
                                 <a href="#" class="btn btn-outline-info btn-sm mr-1">update</a>
-                                <a href="{{route('remove-schema', $schema->$key)}}"
+                                <a href="{{route('remove-schema', $schema->id)}}"
                                    class="btn btn-outline-danger btn-sm mr-1">remove</a>
                             </td>
                         @endif
