@@ -94,7 +94,7 @@ class SchemaController extends Controller
     public function index()
     {
         $schemas = Schema::all();
-        return view('welcome', ['schemas' => $schemas]);
+        return view('pages.schemas.index', ['schemas' => $schemas]);
     }
 
     /**
