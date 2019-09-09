@@ -3,7 +3,7 @@
 @section('title', 'Create Schema')
 @section('top-content')
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h3 class="display-4">Design your schema</h3>
+        <h3 class="display-4">Design your Database</h3>
         <p class="lead">Step One</p>
     </div>
 @endsection
@@ -22,18 +22,18 @@
                             </ul>
                         </div>
                     @endif
-                    <form novalidate method="post" action="{{route('process-step-1')}}">
+                    <form novalidate method="post" action="{{route('store_database')}}">
                         @csrf
                         <div class="form-group">
                             <label for="nameInput">Name</label>
                             <input type="text" class="form-control" id="nameInput" name="name"
-                                   placeholder="Enter name of the schema/Table">
+                                   placeholder="Enter name of the database" value="{{old('name')}}">
                         </div>
                         <div class="form-group">
-                            <label for="number_of_attributes">Number Of Attributes</label>
-                            <input type="number" class="form-control" id="number_of_attributes" min="1"
-                                   name="number_of_attributes"
-                                   placeholder="Enter Number Of Attributes/Columns">
+                            <label for="number_of_tables">Number Of Tables</label>
+                            <input type="number" class="form-control" id="number_of_tables" min="1"
+                                   value="{{old('number_of_tables')}}"
+                                   name="number_of_tables" placeholder="Enter Number of Tables">
                         </div>
                         <button type="submit" class="btn btn-outline-primary">Next</button>
                     </form>

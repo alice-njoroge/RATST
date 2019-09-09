@@ -11,20 +11,30 @@
 |
 */
 
-Route::get('/schemas', 'SchemaController@index')->name('schema_index');
+Route::get('/database-designs', 'DesignedDatabasesController@index')->name('design_databases');
+Route::get('/remove-database/{database_name}', 'DesignedDatabasesController@delete_database')->name('remove_database');
+Route::get('/database-designs/create_database', 'DesignedDatabasesController@create_database')->name('create_database');
+Route::post('/database-designs/create_database', 'DesignedDatabasesController@store_database')
+    ->name('store_database');
+Route::get('/database-designs/create_tables', 'DesignedDatabasesController@create_tables')
+    ->name('create_tables');
+Route::post('/database-designs/create_tables', 'DesignedDatabasesController@process_create_tables')
+    ->name('process_create_tables');
+
+Route::get('/database-designs/create-fields', 'DesignedDatabasesController@create_fields')
+    ->name('create_fields');
+Route::post('/database-designs/create-fields', 'DesignedDatabasesController@process_create_fields')
+    ->name('process_create_fields');
+
+
 Route::get('/import-from-excel', 'ImportFromExcellController@index')->name('import_from_excel');
 Route::post('/import-from-excel', 'ImportFromExcellController@process_excel_file')->name('process_excel_file');
 Route::get('/slqdump', 'SqlImportController@index')->name('import');
 Route::post('/slqdump', 'SqlImportController@upload_file')->name('upload');
-Route::get('schema/remove/{schema}', 'SchemaController@remove')->name('remove-schema');
-Route::get('schema/add/step1', 'SchemaController@add_schema_step_one_view')->name('add-schema-step-1');
-Route::get('schema/add/step2/{schema}', 'SchemaController@add_schema_step_two_view')->name('add-schema-step-2');
-Route::post('schema/add/step1', 'SchemaController@process_step_one')->name('process-step-1');
-Route::post('schema/add/step2', 'SchemaController@process_step_two')->name('process-step-2');
 
 Route::get('/feed-data/{schema}', 'FeedDataController@index')->name('feed-data');
-Route::get('/databases', 'SchemaController@list_databases')->name('databases');
-Route::get('/databases/tables_fields/{database}', 'SchemaController@schema_fields');
+Route::get('/databases', 'AlreadyDefinedDatabasesController@list_databases')->name('databases');
+Route::get('/databases/tables_fields/{database}', 'AlreadyDefinedDatabasesController@schema_fields');
 
 // this line must be last
 Route::get('/{database?}', 'ParserController@index')->name('parser');
