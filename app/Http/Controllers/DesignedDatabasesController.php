@@ -179,10 +179,14 @@ class DesignedDatabasesController extends Controller
         $tables = $request->session()->get('tables');
         $tables[$current_table_index]['fields'] = $fields;
         $request->session()->put('tables', $tables);
+        if (sizeof($tables) != $current_table_index) {
+            return redirect(route('create_fields'));
+        }
         return redirect('/');
     }
 
     /**
+     * @param $database_name
      * @param $table_name
      * @param $no_columns
      * @param $fields
