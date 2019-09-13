@@ -15,6 +15,7 @@
     </div>
 </template>
 <script>
+    // props are used to pass down state to child components.
     export default {
         props: ['database_name'],
         data() {

@@ -38,3 +38,4 @@ Route::get('/databases/tables_fields/{database}', 'AlreadyDefinedDatabasesContro
 
 // this line must be last
 Route::get('/{database?}', 'ParserController@index')->name('parser');
+

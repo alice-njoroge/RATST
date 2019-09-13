@@ -85,6 +85,7 @@
                         Note: when implemented in SQL standard the "default projection" returns a multiset instead of a
                         set, and the Π projection is obtained by the addition of the DISTINCT keyword to eliminate
                         duplicate data.</p>
+                    <a href="" class="btn btn-outline-primary float-right">Read More </a>
                 </div>
             </div>
         </div>
