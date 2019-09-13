@@ -16,6 +16,7 @@ Route::get('/remove-database/{database_name}', 'DesignedDatabasesController@dele
 Route::get('/database-designs/create_database', 'DesignedDatabasesController@create_database')->name('create_database');
 Route::post('/database-designs/create_database', 'DesignedDatabasesController@store_database')
     ->name('store_database');
+
 Route::get('/database-designs/create_tables', 'DesignedDatabasesController@create_tables')
     ->name('create_tables');
 Route::post('/database-designs/create_tables', 'DesignedDatabasesController@process_create_tables')
@@ -25,6 +26,9 @@ Route::get('/database-designs/create-fields', 'DesignedDatabasesController@creat
     ->name('create_fields');
 Route::post('/database-designs/create-fields', 'DesignedDatabasesController@process_create_fields')
     ->name('process_create_fields');
+
+Route::get('/database-designs/feed-data', 'DesignedDatabasesController@feed_table_data')
+    ->name('feed_table_data');
 
 
 Route::get('/import-from-excel', 'ImportFromExcellController@index')->name('import_from_excel');
