@@ -36,6 +36,9 @@ Route::get('/feed-data/{schema}', 'FeedDataController@index')->name('feed-data')
 Route::get('/databases', 'AlreadyDefinedDatabasesController@list_databases')->name('databases');
 Route::get('/databases/tables_fields/{database}', 'AlreadyDefinedDatabasesController@schema_fields');
 
+//help controller
+Route::get('/help', 'HelpController@index')->name('learn-more');
+
 // this line must be last
 Route::get('/{database?}', 'ParserController@index')->name('parser');
 
