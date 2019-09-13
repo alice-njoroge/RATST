@@ -10,4 +10,5 @@ class ParserController extends Controller
     {
         return view('pages.parser.index', ['database' => $database, 'container_fluid' => true]);
     }
+
 }

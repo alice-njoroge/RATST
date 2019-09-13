@@ -33,6 +33,7 @@ class DataImport implements ToCollection
             if (empty($item[0])) {
                 continue;
             }
+            // loop thru the columns in that row
             $insert_statement = $insert_statement . ' ( ';
             foreach ($item as $second_index => $second_item) {
                 if ($second_index != sizeof($item) - 1) {
