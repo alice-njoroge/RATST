@@ -14,6 +14,10 @@
                                 <a href="{{route('learn-more')}}">Introduction </a>
                             </a>
                         </li>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Unary Relations</span>
+                            </a>
+                        </h6>
                         <li class="nav-item">
                             <a class="nav-link" href="">
                                 σ Selection
@@ -26,9 +30,19 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
+                                ρ Rename
+                            </a>
+                        </li>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Set Theory Relations</span>
+                            </a>
+                        </h6>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
                                 ∪ Union
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 - Set Difference
@@ -39,46 +53,29 @@
                                 ∩ Intersection
                             </a>
                         </li>
-                    </ul>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            ρ Rename
-                        </a>
-                    </li>
-                    </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                x Cartesian Product
+                            </a>
+                        </li>
 
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>Saved reports</span>
-                        <a class="d-flex align-items-center text-muted" href="#">
-                            <span data-feather="plus-circle"></span>
-                        </a>
-                    </h6>
-                    <ul class="nav flex-column mb-2">
+
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Binary Relations</span>
+                            <a class="d-flex align-items-center text-muted" href="#">
+
+                            </a>
+                        </h6>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Current month
+                                Join
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Last quarter
+                                Division
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Social engagement
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Year-end sale
-                            </a>
-                        </li>
-                    </ul>
+                        </ul>
                 </div>
             </nav>
 
