@@ -182,7 +182,7 @@ class DesignedDatabasesController extends Controller
         if (sizeof($tables) != $current_table_index) {
             return redirect(route('create_fields'));
         }
-        return redirect('/');
+        return redirect(route('feed_table_data'));
     }
 
     /**
@@ -224,6 +224,26 @@ class DesignedDatabasesController extends Controller
                 $pdo->exec($index_statements);
             }
         }
+    }
+
+    public function feed_table_data(Request $request)
+    {
+        if (!$request->session()->has('current_table_to_feed_data')) {
+            $request->session()->put('current_table_to_feed_data', 1);
+        } else {
+            $current_table = (int)$request->session()->get('current_table_to_feed_data');
+            $request->session()->put('current_table_to_feed_data', $current_table + 1);
+        }
+        return view('pages.schemas.feed_data_step1');
+    }
+
+    public function process_feed_table_data(Request $request)
+    {
+        $this->validate($request, [
+            'no_of_rows' => 'required'
+        ]);
+
+        return view('', ['no_of_rows' => $request->input('no_of_rows')]);
     }
 
     /**
