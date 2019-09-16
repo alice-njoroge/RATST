@@ -26,7 +26,7 @@
                     </ul>
                 </div>
             @endif
-            <form novalidate method="post" action="{{route('process_create_fields')}}">
+            <form novalidate method="post" action="{{route('process_feed_table_data')}}">
                 @csrf
                 <div class="form-group">
                     <label for="rows">No. of data to feed</label>

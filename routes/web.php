@@ -29,7 +29,11 @@ Route::post('/database-designs/create-fields', 'DesignedDatabasesController@proc
 
 Route::get('/database-designs/feed-data', 'DesignedDatabasesController@feed_table_data')
     ->name('feed_table_data');
+Route::post('/database-designs/feed-data', 'DesignedDatabasesController@process_feed_table_data')
+    ->name('process_feed_table_data');
 
+Route::get('/database-designs/feed-data-step-2', 'DesignedDatabasesController@feed_table_data_step2')
+    ->name('feed_table_data_step2');
 
 Route::get('/import-from-excel', 'ImportFromExcellController@index')->name('import_from_excel');
 Route::post('/import-from-excel', 'ImportFromExcellController@process_excel_file')->name('process_excel_file');

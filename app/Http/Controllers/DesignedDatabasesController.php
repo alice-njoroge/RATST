@@ -128,9 +128,6 @@ class DesignedDatabasesController extends Controller
     {
         if (!$request->session()->has('current_table')) {
             $request->session()->put('current_table', 1);
-        } else {
-            $current_table = (int)$request->session()->get('current_table');
-            $request->session()->put('current_table', $current_table + 1);
         }
 
         return view('pages.schemas.table_fields');
@@ -180,6 +177,8 @@ class DesignedDatabasesController extends Controller
         $tables[$current_table_index]['fields'] = $fields;
         $request->session()->put('tables', $tables);
         if (sizeof($tables) != $current_table_index) {
+            $current_table = (int)$request->session()->get('current_table');
+            $request->session()->put('current_table', $current_table + 1);
             return redirect(route('create_fields'));
         }
         return redirect(route('feed_table_data'));
@@ -226,26 +225,51 @@ class DesignedDatabasesController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function feed_table_data(Request $request)
     {
         if (!$request->session()->has('current_table_to_feed_data')) {
             $request->session()->put('current_table_to_feed_data', 1);
-        } else {
-            $current_table = (int)$request->session()->get('current_table_to_feed_data');
-            $request->session()->put('current_table_to_feed_data', $current_table + 1);
         }
         return view('pages.schemas.feed_data_step1');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function process_feed_table_data(Request $request)
     {
+
         $this->validate($request, [
             'no_of_rows' => 'required'
         ]);
 
-        return view('', ['no_of_rows' => $request->input('no_of_rows')]);
+//        $current_table = (int)$request->session()->get('current_table_to_feed_data');
+//        $request->session()->put('current_table_to_feed_data', $current_table + 1);
+        $current_table_to_feed_data_index = (int)session()->get('current_table_to_feed_data');
+        $tables = $request->session()->get('tables');
+        $tables[$current_table_to_feed_data_index]['no_of_rows'] = $request->input('no_of_rows');
+        $request->session()->put('tables', $tables);
+        return redirect(route('feed_table_data_step2'));
     }
 
+    public function feed_table_data_step2(Request $request)
+    {
+        return view('pages.schemas.feed_table_data');
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function process_submited_table_data(Request $request)
+    {
+
+    }
     /**
      * @param Request $request
      * @param $database_name
