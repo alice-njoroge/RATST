@@ -46,7 +46,7 @@ Route::get('/databases/tables_fields/{database}', 'AlreadyDefinedDatabasesContro
 
 //help controller
 Route::get('/help', 'HelpController@index')->name('learn-more');
-
+Route::get('/select', 'HelpController@selection')->name('select');
 // this line must be last
 Route::get('/{database?}', 'ParserController@index')->name('parser');
 
