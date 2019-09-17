@@ -4,10 +4,9 @@
             <div class="card-text">
                 <p>Database:<b> {{database_name}}</b></p>
                 <p><u><b>Tables</b></u></p>
-                <p class="ml-1" v-for="item in tables"><b>{{item.table}}</b>
+                <p class="ml-1" v-for="item in tables"><b class="cursor table-selection">{{item.table}}</b>attraction
                     <br/>
-                    <span class="ml-2" style="cursor: pointer" v-for="column in item.columns">{{column.field}} -  {{column.type}}
-                <hr style="border-style: dotted;"/>
+                    <span class="ml-2 cursor table-selection" v-for="column in item.columns">{{column.field}} -  {{column.type}}<hr style="border-style: dotted;"/>
 
                     </span></p>
             </div>
@@ -38,3 +37,8 @@
         }
     }
 </script>
+<style scoped>
+    .cursor {
+        cursor: pointer;
+    }
+</style>

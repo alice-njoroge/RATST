@@ -54,21 +54,20 @@
             <div class="card">
                 <div class="card-body" style="padding: 0.25rem">
                     <div class="card-text">
-                        |<span style="cursor: pointer;padding: 0 10px 0 10px">Π </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px">σ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px">ρ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px">X </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px">U </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px">- </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px">∩ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px">⋈ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px">θ </span>|
+                        |<span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">Π </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">σ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">ρ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">X </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">U </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">- </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">∩ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">⋈ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">θ </span>|
                     </div>
                 </div>
             </div>
             <br>
-            <div id="editor">σ field = "filter" Π field (schema)
-            </div>
+            <div id="editor">σ field = "filter" Π field (schema)</div>
         </div>
         <div class="col-md-3">
             <div class="card">
@@ -92,9 +91,11 @@
     </div>
 @endsection
 @push('scripts')
+{{--    import the ace library--}}
     <script src="{{asset('ace-builds-master/src-min-noconflict/ace.js')}}" type="text/javascript"
             charset="utf-8"></script>
     <script>
+        // configure the library
         var editor = ace.edit("editor");
         editor.setOptions({
             autoScrollEditorIntoView: true,
@@ -103,6 +104,34 @@
         editor.setTheme("ace/theme/monokai");
         editor.session.setMode("ace/mode/text");
 
+        $(window).ready(function () {
+            $(".symbol").on('click', function () {
+                var text = $(this).text();
+                var editor_text = editor.getValue();
+                if (editor_text.includes('σ field = "filter" Π field (schema)')) {
+                    editor.setValue(text);
+                } else {
+                    editor.setValue(editor_text + text)
+                }
+            });
+
+            setTimeout(function () {
+                $(".table-selection").on('click', function () {
+                    var text = $(this).text();
+                    if (text.includes('-')) {
+                        var remove_after = text.indexOf('-');
+                        var final_text = text.substring(0, remove_after);
+                    } else {
+                        var final_text = text;
+                    }
+                    var editor_text = editor.getValue();
+                    if (editor_text.includes('σ field = "filter" Π field (schema)')) {
+                        editor.setValue(final_text);
+                    } else {
+                        editor.setValue(editor_text + final_text)
+                    }
+                });
+            }, 1000);
+        });
     </script>
 @endpush
-
