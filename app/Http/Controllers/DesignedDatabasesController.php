@@ -10,6 +10,7 @@ use PDO;
 class DesignedDatabasesController extends Controller
 {
     /**
+     * helper function to get pdo instance
      * @param $database_name
      * @return PDO
      */
@@ -70,13 +71,13 @@ class DesignedDatabasesController extends Controller
             flash($message)->error();
             return redirect()->back()->withInput($request->all());
         }
-        \DB::statement("create database " . $name);
+        DB::statement("create database " . $name);
         DesignDatabase::create(['name' => $name]);
         $request->session()->put('database_name', $name);
         $request->session()->put('database_number_tables', $request->input('number_of_tables'));
         return redirect(route('create_tables'));
     }
-
+// get the number of tables from the session and pass to the view in a context variable
     public function create_tables(Request $request)
     {
         $number_of_tables = (int)$request->session()->get('database_number_tables', 1);
