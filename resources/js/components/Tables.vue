@@ -4,7 +4,7 @@
             <div class="card-text">
                 <p>Database:<b> {{database_name}}</b></p>
                 <p><u><b>Tables</b></u></p>
-                <p class="ml-1" v-for="item in tables"><b class="cursor table-selection">{{item.table}}</b>attraction
+                <p class="ml-1" v-for="item in tables"><b class="cursor table-selection">{{item.table}}</b>
                     <br/>
                     <span class="ml-2 cursor table-selection" v-for="column in item.columns">{{column.field}} -  {{column.type}}<hr style="border-style: dotted;"/>
 

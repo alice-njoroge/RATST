@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DesignDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use PDO;
 
 class DesignedDatabasesController extends Controller
@@ -77,6 +78,7 @@ class DesignedDatabasesController extends Controller
         $request->session()->put('database_number_tables', $request->input('number_of_tables'));
         return redirect(route('create_tables'));
     }
+
 // get the number of tables from the session and pass to the view in a context variable
     public function create_tables(Request $request)
     {
@@ -98,7 +100,7 @@ class DesignedDatabasesController extends Controller
 
         $tables = collect($request->input('tables'));
         $table_names = $tables->map(function ($item, $key) {
-            return $item['name'];
+            return Str::slug($item['name'], '_');
         });
 
         $unique_names = array_unique($table_names->toArray()); // get unique names
@@ -143,7 +145,7 @@ class DesignedDatabasesController extends Controller
 
         $fields = collect($request->input('fields'));
         $names = $fields->map(function ($item, $key) {
-            return $item['name'];
+            return Str::slug($item['name']);
         });
         $unique_names = array_unique($names->toArray()); // get unique names
         $duplicate_keys_assoc = array_diff_assoc($names->toArray(), $unique_names); // differentiate main array from the unique array
@@ -164,16 +166,17 @@ class DesignedDatabasesController extends Controller
         $data = [];
         $database_name = $request->session()->get('database_name');
         $current_table_index = (int)$request->session()->get('current_table');
-        $table_name = $request->session()->get('tables')[$current_table_index]['name'];
+        $table_name = Str::slug($request->session()->get('tables')[$current_table_index]['name'], '_');
         $table_no_of_columns = $request->session()->get('tables')[$current_table_index]['number_of_fields'];
         foreach ($fields as $attribute) {
+            $attribute['name'] = Str::slug($attribute['name'], '_');
             $attribute['size'] = (int)$attribute['size'];
             $attribute['null'] = array_key_exists('null', $attribute) ? 1 : 0;
             $attribute['index'] = array_key_exists('index', $attribute) ? 1 : 0;
             $attribute['primary_key'] = array_key_exists('primary_key', $attribute) ? 1 : 0;
             array_push($data, $attribute);
         }
-        $this->create_table($database_name, $table_name, $table_no_of_columns, $fields);
+        $this->create_table($database_name, $table_name, $table_no_of_columns, $data);
         $tables = $request->session()->get('tables');
         $tables[$current_table_index]['fields'] = $fields;
         $request->session()->put('tables', $tables);
@@ -201,12 +204,12 @@ class DesignedDatabasesController extends Controller
                 $sql_statement = $sql_statement . '(' . $field['size'] . ')';
             }
 
-            if (array_key_exists('null', $field)) {
+            if ($field['null'] == 1) {
                 $sql_statement = $sql_statement . ' null';
             } else {
                 $sql_statement = $sql_statement . ' not null';
             }
-            if (array_key_exists('primary_key', $field)) {
+            if ($field['primary_key'] == 1) {
                 $sql_statement = $sql_statement . ' primary key';
             }
             if ($no_columns != $index) {
@@ -218,7 +221,7 @@ class DesignedDatabasesController extends Controller
         $pdo = $this->get_pdo($database_name);
         $pdo->exec($sql_statement);
         foreach ($fields as $field) {
-            if (array_key_exists('index', $field)) {
+            if ($field['index']) {
                 $index_statements = 'create index ';
                 $index_statements = $index_statements . $field['name'] . ' on ' . $table_name . '(' . $field['name'] . ');';
                 $pdo->exec($index_statements);
@@ -271,6 +274,7 @@ class DesignedDatabasesController extends Controller
     {
 
     }
+
     /**
      * @param Request $request
      * @param $database_name

@@ -38165,7 +38165,7 @@ var render = function() {
                 _c("b", { staticClass: "cursor table-selection" }, [
                   _vm._v(_vm._s(item.table))
                 ]),
-                _vm._v("attraction\n                "),
+                _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
                 _vm._l(item.columns, function(column) {
