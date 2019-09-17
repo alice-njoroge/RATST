@@ -56,7 +56,7 @@
                     </ul>
                 </div>
             @endif
-            <form method="post" action="{{route('process_create_fields')}}">
+            <form method="post" action="{{route('process_submitted_table_data')}}">
                 @csrf
                 <table class="table">
                     <thead>
@@ -71,7 +71,7 @@
                         <tr>
                             @foreach($fields as $field)
                                 <td><input type="{{field_data_type($field['type'])}}" class="form-control"
-                                           name="data[{{$i}}][{{$field['name']}}]"
+                                           name="data[{{$i}}][{{\Illuminate\Support\Str::slug($field['name'], '_')}}]"
                                            maxlength="{{field_size($field)}}" {{field_required($field)}}>
                                 </td>
                             @endforeach

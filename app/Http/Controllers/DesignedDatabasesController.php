@@ -253,8 +253,6 @@ class DesignedDatabasesController extends Controller
             'no_of_rows' => 'required'
         ]);
 
-//        $current_table = (int)$request->session()->get('current_table_to_feed_data');
-//        $request->session()->put('current_table_to_feed_data', $current_table + 1);
         $current_table_to_feed_data_index = (int)session()->get('current_table_to_feed_data');
         $tables = $request->session()->get('tables');
         $tables[$current_table_to_feed_data_index]['no_of_rows'] = $request->input('no_of_rows');
@@ -270,9 +268,76 @@ class DesignedDatabasesController extends Controller
     /**
      * @param Request $request
      */
-    public function process_submited_table_data(Request $request)
+    public function process_submitted_table_data(Request $request)
     {
-
+        $current_table_to_feed_data_index = (int)$request->session()->get('current_table_to_feed_data');
+        $table = $request->session()->get('tables')[$current_table_to_feed_data_index];
+        $data = $request->input('data');
+        $table_name = Str::slug($table['name'], '_');
+        $insert_statement = 'insert into ' . $table_name . '(';
+        $data_copy = $data[1];
+        end($data_copy);
+        $last_key = key($data_copy);
+        foreach ($data[1] as $key => $value) {
+            if ($key == $last_key) {
+                $insert_statement = $insert_statement . $key . ')';
+            } else {
+                $insert_statement = $insert_statement . $key . ',';
+            }
+        }
+        $insert_statement = $insert_statement . ' values ';
+        $data_final_copy = $data;
+        end($data_final_copy);
+        $last_item_index = key($data_final_copy);
+        foreach ($data as $index => $current) {
+            $current_copy = $current;
+            end($current_copy);
+            $last_key = key($current_copy);
+            $fields = $table['fields'];
+            $insert_statement = $insert_statement . '(';
+            foreach ($fields as $field) {
+                $field_name = Str::slug($field['name'], '_');
+                $current_value = $current[$field_name];
+                if ($field['type'] == 'int') {
+                    if ($last_key == $field_name) {
+                        $insert_statement = $insert_statement . (int)$current_value . ')';
+                    } else {
+                        $insert_statement = $insert_statement . (int)$current_value . ',';
+                    }
+                } elseif ($field['type'] == 'float') {
+                    if ($last_key == $field_name) {
+                        $insert_statement = $insert_statement . (float)$current_value . ')';
+                    } else {
+                        $insert_statement = $insert_statement . (float)$current_value . ',';
+                    }
+                } else {
+                    if ($last_key == $field_name) {
+                        $insert_statement = $insert_statement . '"' . $current_value . '")';
+                    } else {
+                        $insert_statement = $insert_statement . '"' . $current_value . '",';
+                    }
+                }
+            }
+            if ($index == $last_item_index) {
+                $insert_statement = $insert_statement . ';';
+            } else {
+                $insert_statement = $insert_statement . ',';
+            }
+        }
+        $database_name = $request->session()->get('database_name');
+        $pdo = $this->get_pdo($database_name);
+        $stmt = $pdo->prepare($insert_statement);
+        $stmt->execute();
+        if ($request->input('submit') == 'submit and feed the next table') {
+            if(sizeof($request->session()->get('tables')) == $current_table_to_feed_data_index) {
+                return redirect(route('parser'));
+            }
+            $current_table = (int)$request->session()->get('current_table_to_feed_data');
+            $request->session()->put('current_table_to_feed_data', $current_table + 1);
+            return redirect(route('feed_table_data'));
+        } else {
+            return redirect(route('feed_table_data'));
+        }
     }
 
     /**
@@ -289,7 +354,8 @@ class DesignedDatabasesController extends Controller
             'database_name',
             'database_number_tables',
             'tables',
-            'current_table'
+            'current_table',
+            'current_table_to_feed_data'
         ]);
         flash('Removed database')->success();
         return redirect(route('design_databases'));

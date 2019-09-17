@@ -34,6 +34,8 @@ Route::post('/database-designs/feed-data', 'DesignedDatabasesController@process_
 
 Route::get('/database-designs/feed-data-step-2', 'DesignedDatabasesController@feed_table_data_step2')
     ->name('feed_table_data_step2');
+Route::post('/database-designs/feed-data-step-2', 'DesignedDatabasesController@process_submitted_table_data')
+    ->name('process_submitted_table_data');
 
 Route::get('/import-from-excel', 'ImportFromExcellController@index')->name('import_from_excel');
 Route::post('/import-from-excel', 'ImportFromExcellController@process_excel_file')->name('process_excel_file');
@@ -49,4 +51,3 @@ Route::get('/help', 'HelpController@index')->name('learn-more');
 Route::get('/select', 'HelpController@selection')->name('select');
 // this line must be last
 Route::get('/{database?}', 'ParserController@index')->name('parser');
-
