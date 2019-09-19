@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\DesignDatabase;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 use PDO;
+use PDOException;
 
 class DesignedDatabasesController extends Controller
 {
@@ -32,15 +38,15 @@ class DesignedDatabasesController extends Controller
         ];
         try {
             $pdo = new PDO($dsn, $user, $pass, $options);
-        } catch (\PDOException $e) {
-            throw new \PDOException($e->getMessage(), (int)$e->getCode());
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage(), (int)$e->getCode());
         }
         return $pdo;
     }
 
     /**
      * List the schemas
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -50,7 +56,7 @@ class DesignedDatabasesController extends Controller
 
     /**
      * Create Database
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create_database()
     {
@@ -88,8 +94,8 @@ class DesignedDatabasesController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function process_create_tables(Request $request)
     {
@@ -125,7 +131,7 @@ class DesignedDatabasesController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create_fields(Request $request)
     {
@@ -231,7 +237,7 @@ class DesignedDatabasesController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function feed_table_data(Request $request)
     {
@@ -243,8 +249,8 @@ class DesignedDatabasesController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Validation\ValidationException
+     * @return Factory|View
+     * @throws ValidationException
      */
     public function process_feed_table_data(Request $request)
     {
@@ -267,6 +273,7 @@ class DesignedDatabasesController extends Controller
 
     /**
      * @param Request $request
+     * @return RedirectResponse|Redirector
      */
     public function process_submitted_table_data(Request $request)
     {
@@ -343,7 +350,7 @@ class DesignedDatabasesController extends Controller
     /**
      * @param Request $request
      * @param $database_name
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public
     function delete_database(Request $request, $database_name)
