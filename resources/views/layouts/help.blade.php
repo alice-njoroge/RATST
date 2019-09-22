@@ -19,7 +19,7 @@
                             </a>
                         </h6>
                         <li class="nav-item">
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="{{route('select')}}">
                                 σ Selection
                             </a>
                         </li>

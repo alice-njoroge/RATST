@@ -17,7 +17,7 @@ class DataImport implements ToCollection
     {
         $create_statement = 'create table if not exists ' . session()->get('schema_name')[0] . '(';
         foreach ($collection[0] as $index => $item) {
-            if ($index != sizeof($collection[0]) - 1) {
+            if ($index != sizeof($collection[0]) - 1) { //
                 $create_statement = $create_statement . Str::slug($item, '_') . ' varchar(255),';
             } else {
                 $create_statement = $create_statement . Str::slug($item, '_') . ' varchar(255)';
