@@ -232,7 +232,7 @@ class DesignedDatabasesController extends Controller
         $pdo->exec($sql_statement);
         foreach ($fields as $field) {
             if ($field['index']) {
-                $index_statements = 'create index ';
+                $index_statements = 'create index';
                 $index_statements = $index_statements . $field['name'] . ' on ' . $table_name . '(' . $field['name'] . ');';
                 $pdo->exec($index_statements);
             }
@@ -341,7 +341,8 @@ class DesignedDatabasesController extends Controller
         $stmt->execute();
         if ($request->input('submit') == 'submit and feed the next table') {
             if(sizeof($request->session()->get('tables')) == $current_table_to_feed_data_index) {
-                return redirect(route('parser'));
+                $redirect_to = route('parser').'/'.$database_name;
+                return redirect($redirect_to);
             }
             $current_table = (int)$request->session()->get('current_table_to_feed_data');
             $request->session()->put('current_table_to_feed_data', $current_table + 1);
