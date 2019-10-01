@@ -74,7 +74,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                <button type="submit" class="btn btn-outline-primary">submit</button>
+                <button type="submit" class="btn btn-outline-primary float-right">submit</button>
             </form>
         </div>
     </div>

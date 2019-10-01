@@ -35,7 +35,7 @@
                                    value="{{old('number_of_tables')}}"
                                    name="number_of_tables" placeholder="Enter Number of Tables">
                         </div>
-                        <button type="submit" class="btn btn-outline-primary">Next</button>
+                        <button type="submit" class="btn btn-outline-primary float-right">Next</button>
                     </form>
                 </div>
             </div>
