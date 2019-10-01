@@ -46,7 +46,7 @@
     @endphp
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title text-center">Feed data for table {{$table_name}}/ step 4</h2>
+            <h2 class="card-title text-center">Feed data for table {{$table_name}}</h2>
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
