@@ -16,7 +16,7 @@
     @endphp
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title text-center">Add fields for table {{$table_name}}/ step 3</h2>
+            <h2 class="card-title text-center">Add fields for table <strong>{{$table_name}}</strong></h2>
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -74,7 +74,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                <button type="submit" class="btn btn-outline-primary">submit</button>
+                <button type="submit" class="btn btn-outline-primary float-right">submit</button>
             </form>
         </div>
     </div>

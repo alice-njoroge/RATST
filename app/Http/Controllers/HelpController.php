@@ -14,4 +14,39 @@ class HelpController extends Controller
     {
         return view('pages.help.selection', ['container_fluid' => true]);
     }
+    public function projection()
+    {
+        return view('pages.help.projection', ['container_fluid' => true]);
+    }
+
+    public function rename()
+    {
+        return view('pages.help.rename', ['container_fluid' => true]);
+    }
+
+    public function union()
+    {
+        return view('pages.help.union', ['container_fluid' => true]);
+    }
+
+    public function difference()
+    {
+        return view('pages.help.difference', ['container_fluid' => true]);
+    }
+
+    public function intersection()
+    {
+        return view('pages.help.intersection', ['container_fluid' => true]);
+    }
+
+    public function product()
+    {
+        return view('pages.help.product', ['container_fluid' => true]);
+    }
+
+    public function join()
+    {
+        return view('pages.help.join', ['container_fluid' => true]);
+    }
+
 }

@@ -3,7 +3,7 @@
 @section('title', 'Schemas')
 @section('top-content')
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h6 class="display-4">Available Custom Database Designs </h6>
+        <h6 class="display-4">Custom Designs Available</h6>
         <p class="lead">Click the create button below to design your database</p>
     </div>
 @endsection

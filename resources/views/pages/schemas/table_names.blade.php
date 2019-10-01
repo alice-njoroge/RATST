@@ -47,7 +47,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <button type="submit" class="btn btn-outline-primary">Next</button>
+                        <button type="submit" class="btn btn-outline-primary float-right">Next</button>
                     </form>
                 </div>
             </div>

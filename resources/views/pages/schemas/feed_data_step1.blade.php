@@ -16,7 +16,7 @@
     @endphp
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title text-center">Add data for table {{$table_name}}/ step 3</h2>
+            <h2 class="card-title text-center">Add data to table {{$table_name}}</h2>
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -29,10 +29,10 @@
             <form novalidate method="post" action="{{route('process_feed_table_data')}}">
                 @csrf
                 <div class="form-group">
-                    <label for="rows">No. of data to feed</label>
+                    <label for="rows">How many rows of data do you want to feed?</label>
                     <input type="email" id="rows" class="form-control" name="no_of_rows" aria-describedby="emailHelp"
                            placeholder="Enter number">
-                    <small class="form-text text-muted">How many rows of data to feed?</small>
+                    <small class="form-text text-muted">number of rows of data to feed</small>
                 </div>
                 <button type="submit" class="btn btn-outline-primary">submit</button>
             </form>

@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\DesignDatabase;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 use PDO;
+use PDOException;
 
 class DesignedDatabasesController extends Controller
 {
@@ -32,15 +38,15 @@ class DesignedDatabasesController extends Controller
         ];
         try {
             $pdo = new PDO($dsn, $user, $pass, $options);
-        } catch (\PDOException $e) {
-            throw new \PDOException($e->getMessage(), (int)$e->getCode());
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage(), (int)$e->getCode());
         }
         return $pdo;
     }
 
     /**
      * List the schemas
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -50,7 +56,7 @@ class DesignedDatabasesController extends Controller
 
     /**
      * Create Database
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create_database()
     {
@@ -76,6 +82,7 @@ class DesignedDatabasesController extends Controller
         DesignDatabase::create(['name' => $name]);
         $request->session()->put('database_name', $name);
         $request->session()->put('database_number_tables', $request->input('number_of_tables'));
+        flash('Details Recorded Successfully, now fill in the table names and number of columns for each table')->success();
         return redirect(route('create_tables'));
     }
 
@@ -88,8 +95,8 @@ class DesignedDatabasesController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function process_create_tables(Request $request)
     {
@@ -120,12 +127,13 @@ class DesignedDatabasesController extends Controller
             return redirect()->back()->withInput($request->all());
         }
         $request->session()->put('tables', $tables->toArray());
+        flash('Success! proceed to feeding in the column names and their types')->success();
         return redirect(route('create_fields'));
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create_fields(Request $request)
     {
@@ -183,8 +191,10 @@ class DesignedDatabasesController extends Controller
         if (sizeof($tables) != $current_table_index) {
             $current_table = (int)$request->session()->get('current_table');
             $request->session()->put('current_table', $current_table + 1);
+            flash('Success! your fields have been added proceed to the next table!!')->success();
             return redirect(route('create_fields'));
         }
+        flash('Success! your fields have been added proceed to feeding in data!!')->success();
         return redirect(route('feed_table_data'));
     }
 
@@ -231,7 +241,7 @@ class DesignedDatabasesController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function feed_table_data(Request $request)
     {
@@ -243,8 +253,8 @@ class DesignedDatabasesController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Validation\ValidationException
+     * @return Factory|View
+     * @throws ValidationException
      */
     public function process_feed_table_data(Request $request)
     {
@@ -267,6 +277,7 @@ class DesignedDatabasesController extends Controller
 
     /**
      * @param Request $request
+     * @return RedirectResponse|Redirector
      */
     public function process_submitted_table_data(Request $request)
     {
@@ -334,8 +345,10 @@ class DesignedDatabasesController extends Controller
             }
             $current_table = (int)$request->session()->get('current_table_to_feed_data');
             $request->session()->put('current_table_to_feed_data', $current_table + 1);
+            flash('Success! your data has been recorded')->success();
             return redirect(route('feed_table_data'));
         } else {
+            flash('Success! your data has been recorded')->success();
             return redirect(route('feed_table_data'));
         }
     }
@@ -343,7 +356,7 @@ class DesignedDatabasesController extends Controller
     /**
      * @param Request $request
      * @param $database_name
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public
     function delete_database(Request $request, $database_name)
@@ -357,7 +370,7 @@ class DesignedDatabasesController extends Controller
             'current_table',
             'current_table_to_feed_data'
         ]);
-        flash('Removed database')->success();
+        flash('Database Removed Successfully')->success();
         return redirect(route('design_databases'));
     }
 }

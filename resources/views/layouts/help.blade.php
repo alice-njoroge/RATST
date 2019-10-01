@@ -19,17 +19,17 @@
                             </a>
                         </h6>
                         <li class="nav-item">
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="{{route('select')}}">
                                 σ Selection
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{route('project')}}">
                                 Π Projection
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{route('rename')}}">
                                 ρ Rename
                             </a>
                         </li>
@@ -38,23 +38,23 @@
                             </a>
                         </h6>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{route('union')}}">
                                 ∪ Union
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{route('diff')}}">
                                 - Set Difference
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{route('intersection')}}">
                                 ∩ Intersection
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{route('product')}}">
                                 x Cartesian Product
                             </a>
                         </li>
@@ -67,7 +67,7 @@
                             </a>
                         </h6>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{route('join')}}">
                                 Join
                             </a>
                         </li>

@@ -21,6 +21,8 @@
             <a class="p-2 text-dark" href="{{route('design_databases')}}">Key in data</a>
             <a class="p-2 text-dark" href="{{route('import')}}">Import from SQL dump </a>
             <a class="p-2 text-dark" href="{{route('import_from_excel')}}">Import from Excel</a>
+            <a class="p-2 text-dark" href="{{route('learn-more')}}">Help</a>
+
         </nav>
     </div>
 
