@@ -32,9 +32,9 @@
                         </div>
                         <div class="col-md-6">
                             <h4>Or ...</h4>
-                            <p><a href="" class="btn btn-outline-secondary">Key in Data</a></p>
-                            <p><a href="" class="btn btn-outline-secondary">Import from Excel</a></p>
-                            <p><a href="" class="btn btn-outline-secondary">Import from MYSQL dump</a>
+                            <p><a href="{{route('design_databases')}}" class="btn btn-outline-secondary">Design Dataset</a></p>
+                            <p><a href="{{route('import_from_excel')}}" class="btn btn-outline-secondary">Import from Excel</a></p>
+                            <p><a href="{{route('import')}}" class="btn btn-outline-secondary">Import from MYSQL dump</a>
                             </p>
                         </div>
                     </div>
@@ -75,15 +75,15 @@
                     <h4>Help</h4>
                     <hr/>
                     <b>Projection, Π</b>
-                    <p>A projection is a unary operation written as {\displaystyle \Pi _{a_{1},\ldots ,a_{n}}(R)}
-                        \Pi_{a_1, \ldots,a_n}( R ) where {\displaystyle a_{1},\ldots ,a_{n}} a_1,\ldots,a_n is a set of
-                        attribute names. The result of such projection is defined as the set that is obtained when all
-                        tuples in R are restricted to the set {\displaystyle \{a_{1},\ldots ,a_{n}\}} \{a_{1},\ldots
-                        ,a_{n}\}.
-
-                        Note: when implemented in SQL standard the "default projection" returns a multiset instead of a
-                        set, and the Π projection is obtained by the addition of the DISTINCT keyword to eliminate
-                        duplicate data.</p>
+                    <p>Projection is a unary operation <br>
+                        It is written as(Π)<br>
+                        It projects column(s) that satisfy a given predicate</p>
+                    <p>Note: <br>
+                        when implemented in SQL standard the "default projection" returns a multiset instead of a
+                        set
+                        <br> the Π projection is obtained by the addition of the DISTINCT keyword to eliminate
+                        duplicate data</p>
+                        .
                     <a href="{{route('learn-more')}}" class="btn btn-outline-primary float-right">Read More </a>
                 </div>
             </div>
