@@ -60,12 +60,21 @@ class SqlImportController extends Controller
             'database' => 'required|string'
         ]);
         // use the DB facade to create the database in the server
+        $name = $request->input('database');
+        $select_database = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$name'";
+
+        if (!empty(DB::select($select_database))) {
+            $message = 'The database name is already taken. Pick another name for your database';
+            flash($message)->error();
+            return redirect()->back()->withInput($request->all());
+        }
         DB::statement('create database if not exists ' . $request->input('database'));
         $pdo = $this->get_pdo($request->input('database')); // cal get pdo to get a new pdo instance
         $pdo->exec(file_get_contents($request->file('sql_file'))); // execute the sql file against the database
 
         flash('SQL imported successfully')->success();
-        return redirect('/');
+        $redirect_to = route('parser') . '/' . $request->input('database');
+        return redirect($redirect_to);
 
     }
 }
