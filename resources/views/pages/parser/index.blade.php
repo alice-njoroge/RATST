@@ -68,6 +68,28 @@
             </div>
             <br>
             <div id="editor">σ field = "filter" Π field (schema)</div>
+            <button class="btn btn-outline-info mt-3">
+                execute
+            </button>
+            <div class="card mt-2">
+                <h4 class="card-header text-center">
+                    Results
+                </h4>
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="relational-tab" data-toggle="tab" href="#relational" role="tab" aria-controls="relational" aria-selected="true">Relational Output</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="sql-tab" data-toggle="tab" href="#sql" role="tab" aria-controls="sql" aria-selected="false">Sql Output</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="relational" role="tabpanel" aria-labelledby="home-tab">This will display relational output</div>
+                        <div class="tab-pane fade" id="sql" role="tabpanel" aria-labelledby="profile-tab">This will display the generated SQL</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="card">

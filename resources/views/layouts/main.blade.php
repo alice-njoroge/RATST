@@ -45,6 +45,9 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
 </script>
+<script>
+    $('div.alert-success').delay(3000).fadeOut(350);
+</script>
 @stack('scripts')
 </body>
 </html>
