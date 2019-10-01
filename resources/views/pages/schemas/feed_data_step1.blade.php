@@ -16,7 +16,7 @@
     @endphp
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title text-center">Add data for table {{$table_name}}/ step 3</h2>
+            <h2 class="card-title text-center">Add data to table {{$table_name}}</h2>
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>

@@ -82,6 +82,7 @@ class DesignedDatabasesController extends Controller
         DesignDatabase::create(['name' => $name]);
         $request->session()->put('database_name', $name);
         $request->session()->put('database_number_tables', $request->input('number_of_tables'));
+        flash('Details Recorded Successfully, now fill in the table names and number of columns for each table')->success();
         return redirect(route('create_tables'));
     }
 
@@ -126,6 +127,7 @@ class DesignedDatabasesController extends Controller
             return redirect()->back()->withInput($request->all());
         }
         $request->session()->put('tables', $tables->toArray());
+        flash('Success! proceed to feeding in the column names and their types')->success();
         return redirect(route('create_fields'));
     }
 
@@ -189,8 +191,10 @@ class DesignedDatabasesController extends Controller
         if (sizeof($tables) != $current_table_index) {
             $current_table = (int)$request->session()->get('current_table');
             $request->session()->put('current_table', $current_table + 1);
+            flash('Success! your fields have been added proceed to the next table!!')->success();
             return redirect(route('create_fields'));
         }
+        flash('Success! your fields have been added proceed to feeding in data!!')->success();
         return redirect(route('feed_table_data'));
     }
 
@@ -341,8 +345,10 @@ class DesignedDatabasesController extends Controller
             }
             $current_table = (int)$request->session()->get('current_table_to_feed_data');
             $request->session()->put('current_table_to_feed_data', $current_table + 1);
+            flash('Success! your data has been recorded')->success();
             return redirect(route('feed_table_data'));
         } else {
+            flash('Success! your data has been recorded')->success();
             return redirect(route('feed_table_data'));
         }
     }
@@ -364,7 +370,7 @@ class DesignedDatabasesController extends Controller
             'current_table',
             'current_table_to_feed_data'
         ]);
-        flash('Removed database')->success();
+        flash('Database Removed Successfully')->success();
         return redirect(route('design_databases'));
     }
 }
