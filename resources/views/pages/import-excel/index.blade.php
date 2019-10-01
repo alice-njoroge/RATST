@@ -25,7 +25,12 @@
                           enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="schema">Schema/Table Name</label>
+                            <label for="provide_database">Database Name</label>
+                            <input type="text" name="database" class="form-control" id="provide_database"
+                                   placeholder="Provide Database Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="schema">Table Name</label>
                             <input type="text" name="schema_name" class="form-control" id="schema"
                                    placeholder="Enter Schema Name">
                         </div>
