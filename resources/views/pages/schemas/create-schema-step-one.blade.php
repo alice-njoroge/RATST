@@ -10,7 +10,7 @@
 @section('main-content')
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title text-center">Create Schema / step 1</h2>
+            <h2 class="card-title text-center">Create Schema</h2>
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     @if ($errors->any())
