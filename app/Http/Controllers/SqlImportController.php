@@ -8,6 +8,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use PDO;
+use PDOException;
 
 class SqlImportController extends Controller
 {
@@ -69,8 +70,14 @@ class SqlImportController extends Controller
             return redirect()->back()->withInput($request->all());
         }
         DB::statement('create database if not exists ' . $request->input('database'));
-        $pdo = $this->get_pdo($request->input('database')); // cal get pdo to get a new pdo instance
-        $pdo->exec(file_get_contents($request->file('sql_file'))); // execute the sql file against the database
+        try{
+            $pdo = $this->get_pdo($request->input('database')); // cal get pdo to get a new pdo instance
+            $pdo->exec(file_get_contents($request->file('sql_file'))); // execute the sql file against the database
+        } catch (PDOException $exception) {
+            flash($exception->getMessage())->error();
+            return redirect()->back()->withInput();
+        }
+
 
         flash('SQL imported successfully')->success();
         $redirect_to = route('parser') . '/' . $request->input('database');

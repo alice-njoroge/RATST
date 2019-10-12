@@ -337,9 +337,14 @@ class DesignedDatabasesController extends Controller
             }
         }
         $database_name = $request->session()->get('database_name');
-        $pdo = $this->get_pdo($database_name);
-        $stmt = $pdo->prepare($insert_statement);
-        $stmt->execute();
+        try{
+            $pdo = $this->get_pdo($database_name);
+            $stmt = $pdo->prepare($insert_statement);
+            $stmt->execute();
+        } catch (PDOException $exception) {
+            flash($exception->getMessage())->error();
+            return redirect()->back()->withInput();
+        }
         if ($request->input('submit') == 'submit and feed the next table') {
             if(sizeof($request->session()->get('tables')) == $current_table_to_feed_data_index) {
                 $redirect_to = route('parser').'/'.$database_name;
