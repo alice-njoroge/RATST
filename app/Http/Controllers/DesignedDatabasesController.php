@@ -14,6 +14,7 @@ use Illuminate\View\View;
 use PDO;
 use PDOException;
 
+// TODO Redesign this controller before the final copy
 class DesignedDatabasesController extends Controller
 {
     /**
