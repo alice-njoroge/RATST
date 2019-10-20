@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') | RATSQL</title>
 
 
@@ -33,7 +34,7 @@
         <footer class="pt-4 my-md-5 pt-md-5 border-top">
             <div class="row">
                 <div class="col-12 col-md">
-                    <small class="d-block mb-3 text-muted">&copy; {{now()->format('Y')}}</small>
+                    <small class="d-block mb-3 text-muted">&copy; {{now()->format('Y')}}, Alice Njoroge</small>
                 </div>
             </div>
         </footer>

@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +26,9 @@ Route::get('/database-designs/create-fields', 'DesignedDatabasesController@creat
     ->name('create_fields');
 Route::post('/database-designs/create-fields', 'DesignedDatabasesController@process_create_fields')
     ->name('process_create_fields');
+
+Route::get('/database-designs/feed-data/tables/{database}', 'FeedDataController@index')
+    ->name('feed.index');
 
 Route::get('/database-designs/feed-data', 'DesignedDatabasesController@feed_table_data')
     ->name('feed_table_data');
@@ -60,3 +63,4 @@ Route::get('/join', 'HelpController@join')->name('join');
 
 // this line must be last
 Route::get('/{database?}', 'ParserController@index')->name('parser');
+Route::post('/execute', 'ParserController@execute')->name('execute_parser');

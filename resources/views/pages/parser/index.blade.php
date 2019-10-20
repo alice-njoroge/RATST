@@ -32,9 +32,12 @@
                         </div>
                         <div class="col-md-6">
                             <h4>Or ...</h4>
-                            <p><a href="{{route('design_databases')}}" class="btn btn-outline-secondary">Design Dataset</a></p>
-                            <p><a href="{{route('import_from_excel')}}" class="btn btn-outline-secondary">Import from Excel</a></p>
-                            <p><a href="{{route('import')}}" class="btn btn-outline-secondary">Import from MYSQL dump</a>
+                            <p><a href="{{route('design_databases')}}" class="btn btn-outline-secondary">Design
+                                    Dataset</a></p>
+                            <p><a href="{{route('import_from_excel')}}" class="btn btn-outline-secondary">Import from
+                                    Excel</a></p>
+                            <p><a href="{{route('import')}}" class="btn btn-outline-secondary">Import from MYSQL
+                                    dump</a>
                             </p>
                         </div>
                     </div>
@@ -68,27 +71,10 @@
             </div>
             <br>
             <div id="editor">σ field = "filter" Π field (schema)</div>
-            <button class="btn btn-outline-info mt-3">
+            <button class="btn btn-outline-info mt-3" id="execute">
                 execute
             </button>
-            <div class="card mt-2">
-                <h4 class="card-header text-center">
-                    Results
-                </h4>
-                <div class="card-body">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="relational-tab" data-toggle="tab" href="#relational" role="tab" aria-controls="relational" aria-selected="true">Relational Output</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="sql-tab" data-toggle="tab" href="#sql" role="tab" aria-controls="sql" aria-selected="false">Sql Output</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="relational" role="tabpanel" aria-labelledby="home-tab">This will display relational output</div>
-                        <div class="tab-pane fade" id="sql" role="tabpanel" aria-labelledby="profile-tab">This will display the generated SQL</div>
-                    </div>
-                </div>
+            <div id="results">
             </div>
         </div>
         <div class="col-md-3">
@@ -105,7 +91,7 @@
                         set
                         <br> the Π projection is obtained by the addition of the DISTINCT keyword to eliminate
                         duplicate data</p>
-                        .
+                    .
                     <a href="{{route('learn-more')}}" class="btn btn-outline-primary float-right">Read More </a>
                 </div>
             </div>
@@ -113,7 +99,7 @@
     </div>
 @endsection
 @push('scripts')
-{{--    import the ace library--}}
+    {{--    import the ace library--}}
     <script src="{{asset('ace-builds-master/src-min-noconflict/ace.js')}}" type="text/javascript"
             charset="utf-8"></script>
     <script>
@@ -135,6 +121,23 @@
                 } else {
                     editor.setValue(editor_text + text)
                 }
+            });
+
+            $("#execute").on('click', function (e) {
+                e.preventDefault();
+                var editor_value = editor.getValue();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: '{{route('execute_parser')}}',
+                    type: 'post',
+                    data: {'data': editor_value}
+                }).done(function (response) {
+                    $('#results').html(response)
+                });
             });
 
             setTimeout(function () {
