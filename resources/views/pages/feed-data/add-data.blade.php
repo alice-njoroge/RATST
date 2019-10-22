@@ -3,23 +3,16 @@
 @section('title', 'Create Schema')
 @section('top-content')
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h3 class="display-4">Design your Database</h3>
-        <p class="lead">Step Four</p>
+        <h3 class="display-4">feed data to table {{$table_name}} of {{$schema}}</h3>
     </div>
 @endsection
 @section('main-content')
     @php
-        $current_table_to_feed_data_index = (int) session()->get('current_table_to_feed_data');
-        $table = session()->get('tables')[$current_table_to_feed_data_index];
-        $table_name = $table['name'];
-        $fields = $table['fields'];
-        $no_of_rows = $table['no_of_rows'];
-
         // define the function that checks the data type of a field
         // given the type
         function field_data_type($type)
         {
-            if ($type == 'float' || $type == 'int') {
+            if (strpos($type, 'int') !== false || strpos($type, 'float') !== false) {
                 return 'number';
             }
             return 'text';
@@ -46,7 +39,7 @@
     @endphp
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title text-center">Feed data for table {{$table_name}}</h2>
+            {{--            <h2 class="card-title text-center">Feed data for table {{$table_name}}</h2>--}}
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -56,30 +49,31 @@
                     </ul>
                 </div>
             @endif
-            <form method="post" action="{{route('process_submitted_table_data')}}">
+            <form method="post" action="{{route('feed.process_submitted_table_data')}}">
                 @csrf
+                <input type="hidden" name="table_name" value="{{$table_name}}">
+                <input type="hidden" name="schema" value="{{$schema}}">
                 <table class="table">
                     <thead>
                     <tr>
                         @foreach($fields as $field)
-                            <th scope="col">{{$field['name']}}</th>
+                            <th scope="col">{{$field['field']}}</th>
                         @endforeach
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach(range(1, $no_of_rows) as  $i)
-                        <tr>
-                            @foreach($fields as $field)
-                                <td><input type="{{field_data_type($field['type'])}}" class="form-control"
-                                           name="data[{{$i}}][{{\Illuminate\Support\Str::slug($field['name'], '_')}}]"
-                                           maxlength="{{field_size($field)}}" {{field_required($field)}}>
-                                </td>
-                            @endforeach
-                        </tr>
-                    @endforeach
+                    <tr>
+                        @foreach($fields as $field)
+                            <td>
+                                <input type="{{field_data_type($field['type'])}}" class="form-control"
+                                       name="{{\Illuminate\Support\Str::slug($field['field'], '_')}}"
+                                       maxlength="{{field_size($field)}}" {{field_required($field)}}>
+                            </td>
+                        @endforeach
+                    </tr>
                     </tbody>
                 </table>
-                <input type="submit" name="submit" value="submit and feed the next table"
+                <input type="submit" name="submit" value="submit and feed another table"
                        class="btn btn-outline-primary"/>
                 <input type="submit" name="submit" value="submit and feed more data" class="btn btn-outline-primary"/>
 

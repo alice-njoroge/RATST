@@ -27,9 +27,8 @@
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{$database->name}}</td>
                         <td>
-                            <a href=""
-                               class="btn btn-outline-success btn-sm mr-1">feed
-                                data</a>
+                            <a href="{{route('feed.index', $database->name)}}"
+                               class="btn btn-outline-success btn-sm mr-1" title="Select a table">view tables</a>
                             <a href="#" class="btn btn-outline-info btn-sm mr-1">update</a>
                             <a href="{{route('remove_database',$database->name)}}"
                                class="btn btn-outline-danger btn-sm mr-1">remove</a>

@@ -30,23 +30,18 @@ Route::post('/database-designs/create-fields', 'DesignedDatabasesController@proc
 Route::get('/database-designs/feed-data/tables/{database}', 'FeedDataController@index')
     ->name('feed.index');
 
-Route::get('/database-designs/feed-data', 'DesignedDatabasesController@feed_table_data')
-    ->name('feed_table_data');
-Route::post('/database-designs/feed-data', 'DesignedDatabasesController@process_feed_table_data')
-    ->name('process_feed_table_data');
+Route::get('/database-designs/feed-data/tables/{database}/{table_name}', 'FeedDataController@feed_data_view')
+    ->name('feed.data_view');
+Route::post('/database-designs/process-feed-data', 'FeedDataController@process_submitted_table_data')
+    ->name('feed.process_submitted_table_data');
 
-Route::get('/database-designs/feed-data-step-2', 'DesignedDatabasesController@feed_table_data_step2')
-    ->name('feed_table_data_step2');
-Route::post('/database-designs/feed-data-step-2', 'DesignedDatabasesController@process_submitted_table_data')
-    ->name('process_submitted_table_data');
 //import from excel
 Route::get('/import-from-excel', 'ImportFromExcellController@index')->name('import_from_excel');
 Route::post('/import-from-excel', 'ImportFromExcellController@process_excel_file')->name('process_excel_file');
 //import from sql
 Route::get('/slqdump', 'SqlImportController@index')->name('import');
 Route::post('/slqdump', 'SqlImportController@upload_file')->name('upload');
-// feed data
-Route::get('/feed-data/{schema}', 'FeedDataController@index')->name('feed-data');
+//parser data
 Route::get('/databases', 'AlreadyDefinedDatabasesController@list_databases')->name('databases');
 Route::get('/databases/tables_fields/{database}', 'AlreadyDefinedDatabasesController@schema_fields');
 

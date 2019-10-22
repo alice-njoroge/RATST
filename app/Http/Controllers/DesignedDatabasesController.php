@@ -196,7 +196,7 @@ class DesignedDatabasesController extends Controller
             return redirect(route('create_fields'));
         }
         flash('Success! your fields have been added proceed to feeding in data!!')->success();
-        return redirect(route('feed_table_data'));
+        return redirect(route('feed.index', $database_name));
     }
 
     /**
@@ -237,126 +237,6 @@ class DesignedDatabasesController extends Controller
                 $index_statements = $index_statements . $field['name'] . ' on ' . $table_name . '(' . $field['name'] . ');';
                 $pdo->exec($index_statements);
             }
-        }
-    }
-
-    /**
-     * @param Request $request
-     * @return Factory|View
-     */
-    public function feed_table_data(Request $request)
-    {
-        if (!$request->session()->has('current_table_to_feed_data')) {
-            $request->session()->put('current_table_to_feed_data', 1);
-        }
-        return view('pages.schemas.feed_data_step1');
-    }
-
-    /**
-     * @param Request $request
-     * @return Factory|View
-     * @throws ValidationException
-     */
-    public function process_feed_table_data(Request $request)
-    {
-
-        $this->validate($request, [
-            'no_of_rows' => 'required'
-        ]);
-
-        $current_table_to_feed_data_index = (int)session()->get('current_table_to_feed_data');
-        $tables = $request->session()->get('tables');
-        $tables[$current_table_to_feed_data_index]['no_of_rows'] = $request->input('no_of_rows');
-        $request->session()->put('tables', $tables);
-        return redirect(route('feed_table_data_step2'));
-    }
-
-    public function feed_table_data_step2(Request $request)
-    {
-        return view('pages.schemas.feed_table_data');
-    }
-
-    /**
-     * @param Request $request
-     * @return RedirectResponse|Redirector
-     */
-    public function process_submitted_table_data(Request $request)
-    {
-        $current_table_to_feed_data_index = (int)$request->session()->get('current_table_to_feed_data');
-        $table = $request->session()->get('tables')[$current_table_to_feed_data_index];
-        $data = $request->input('data');
-        $table_name = Str::slug($table['name'], '_');
-        $insert_statement = 'insert into ' . $table_name . '(';
-        $data_copy = $data[1];
-        end($data_copy);
-        $last_key = key($data_copy);
-        foreach ($data[1] as $key => $value) {
-            if ($key == $last_key) {
-                $insert_statement = $insert_statement . $key . ')';
-            } else {
-                $insert_statement = $insert_statement . $key . ',';
-            }
-        }
-        $insert_statement = $insert_statement . ' values ';
-        $data_final_copy = $data;
-        end($data_final_copy);
-        $last_item_index = key($data_final_copy);
-        foreach ($data as $index => $current) {
-            $current_copy = $current;
-            end($current_copy);
-            $last_key = key($current_copy);
-            $fields = $table['fields'];
-            $insert_statement = $insert_statement . '(';
-            foreach ($fields as $field) {
-                $field_name = Str::slug($field['name'], '_');
-                $current_value = $current[$field_name];
-                if ($field['type'] == 'int') {
-                    if ($last_key == $field_name) {
-                        $insert_statement = $insert_statement . (int)$current_value . ')';
-                    } else {
-                        $insert_statement = $insert_statement . (int)$current_value . ',';
-                    }
-                } elseif ($field['type'] == 'float') {
-                    if ($last_key == $field_name) {
-                        $insert_statement = $insert_statement . (float)$current_value . ')';
-                    } else {
-                        $insert_statement = $insert_statement . (float)$current_value . ',';
-                    }
-                } else {
-                    if ($last_key == $field_name) {
-                        $insert_statement = $insert_statement . '"' . $current_value . '")';
-                    } else {
-                        $insert_statement = $insert_statement . '"' . $current_value . '",';
-                    }
-                }
-            }
-            if ($index == $last_item_index) {
-                $insert_statement = $insert_statement . ';';
-            } else {
-                $insert_statement = $insert_statement . ',';
-            }
-        }
-        $database_name = $request->session()->get('database_name');
-        try{
-            $pdo = $this->get_pdo($database_name);
-            $stmt = $pdo->prepare($insert_statement);
-            $stmt->execute();
-        } catch (PDOException $exception) {
-            flash($exception->getMessage())->error();
-            return redirect()->back()->withInput();
-        }
-        if ($request->input('submit') == 'submit and feed the next table') {
-            if(sizeof($request->session()->get('tables')) == $current_table_to_feed_data_index) {
-                $redirect_to = route('parser').'/'.$database_name;
-                return redirect($redirect_to);
-            }
-            $current_table = (int)$request->session()->get('current_table_to_feed_data');
-            $request->session()->put('current_table_to_feed_data', $current_table + 1);
-            flash('Success! your data has been recorded')->success();
-            return redirect(route('feed_table_data'));
-        } else {
-            flash('Success! your data has been recorded')->success();
-            return redirect(route('feed_table_data'));
         }
     }
 

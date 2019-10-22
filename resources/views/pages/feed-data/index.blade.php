@@ -24,7 +24,9 @@
                     <tr>
                         <td>{{$table->$key}}</td>
                         <td>
-                            <a href="#" class="btn btn-success btn-sm">Feed Data</a>
+                            <a href="{{route('feed.data_view',[$schema, $table->$key])}}"
+                               class="btn btn-success btn-sm">Feed
+                                Data</a>
                             <a href="#" class="btn btn-info btn-sm">Update Table</a>
                             <a href="#" class="btn btn-danger btn-sm">Remove Table</a>
                         </td>
