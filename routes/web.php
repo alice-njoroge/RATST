@@ -59,3 +59,4 @@ Route::get('/join', 'HelpController@join')->name('join');
 // this line must be last
 Route::get('/{database?}', 'ParserController@index')->name('parser');
 Route::post('/execute', 'ParserController@execute')->name('execute_parser');
+Route::post('/show-sample-data', 'ParserController@sample_data')->name('sample_data');

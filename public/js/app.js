@@ -2001,13 +2001,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // props are used to pass down state to child components.
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['database_name'],
   data: function data() {
     return {
       tables: [],
-      error: null
+      error: null,
+      current_table_name: '',
+      current_database_name: '',
+      columns: [],
+      data: [],
+      styleObject: {
+        'max-width': '1200px'
+      }
     };
   },
   created: function created() {
@@ -2023,6 +2065,34 @@ __webpack_require__.r(__webpack_exports__);
         _this.error = error.response.data.message;
       }
     });
+  },
+  methods: {
+    view_data: function view_data(table_name, database_name) {
+      var _this2 = this;
+
+      $('#displayDataModal').modal('show');
+      this.current_table_name = table_name;
+      this.current_database_name = database_name;
+      axios({
+        method: 'post',
+        url: '/show-sample-data',
+        data: {
+          database_name: database_name,
+          table_name: table_name
+        }
+      }).then(function (response) {
+        _this2.columns = response.data.columns;
+        _this2.data = response.data.data;
+
+        if (_this2.columns.length <= 5) {
+          _this2.styleObject["max-width"] = '600px';
+        } else {
+          _this2.styleObject["max-width"] = '1200px';
+        }
+      })["catch"](function (error) {
+        return console.log(error.response.data);
+      });
+    }
   }
 });
 
@@ -38165,6 +38235,20 @@ var render = function() {
                 _c("b", { staticClass: "cursor table-selection" }, [
                   _vm._v(_vm._s(item.table))
                 ]),
+                _c(
+                  "a",
+                  {
+                    staticClass: "float-right",
+                    attrs: { href: "#!" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.view_data(item.table, _vm.database_name)
+                      }
+                    }
+                  },
+                  [_vm._v("view data")]
+                ),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
@@ -38187,7 +38271,93 @@ var render = function() {
         ],
         2
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "displayDataModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalCenterTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered modal-lg",
+            style: _vm.styleObject,
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    staticClass: "modal-title",
+                    attrs: { id: "exampleModalCenterTitle" }
+                  },
+                  [
+                    _vm._v(
+                      "Sample data for " +
+                        _vm._s(_vm.current_table_name) +
+                        "\n                        table in " +
+                        _vm._s(_vm.current_database_name) +
+                        " database"
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("table", { staticClass: "table table-responsive" }, [
+                  _c("thead", [
+                    _c(
+                      "tr",
+                      _vm._l(_vm.columns, function(column) {
+                        return _c("th", { attrs: { scope: "col" } }, [
+                          _vm._v(_vm._s(column.Field))
+                        ])
+                      }),
+                      0
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.data, function(row) {
+                      return _c(
+                        "tr",
+                        _vm._l(row, function(data_item) {
+                          return _c("th", [_vm._v(_vm._s(data_item))])
+                        }),
+                        0
+                      )
+                    }),
+                    0
+                  )
+                ]),
+                _vm._v(" "),
+                this.data.length === 10
+                  ? _c("p", { staticClass: "text-center" }, [
+                      _c("b", [_vm._v("...............")])
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm._m(2)
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -38196,6 +38366,44 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [_c("u", [_c("b", [_vm._v("Tables")])])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("Save changes")]
+      )
+    ])
   }
 ]
 render._withStripped = true
