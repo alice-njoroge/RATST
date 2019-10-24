@@ -47,7 +47,7 @@
     })
 </script>
 <script>
-    $('div.alert-success').delay(3000).fadeOut(350);
+    $('div.alert-success').delay(5000).fadeOut(350);
 </script>
 @stack('scripts')
 </body>
