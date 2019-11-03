@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use PDO;
+use Throwable;
 
 class ParserController extends Controller
 {
@@ -37,8 +39,8 @@ class ParserController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
+     * @return JsonResponse
+     * @throws Throwable
      */
     public function execute(Request $request)
     {
@@ -54,19 +56,18 @@ class ParserController extends Controller
         ]);
         $result = json_decode((string)$response->getBody(), true);
         $pdo = $this->get_pdo($request->input('database_name'));
-        $sanitized_string = str_replace('"', '', $result['result']);
-        $stmt = $pdo->query($sanitized_string);
+        $stmt = $pdo->query($result['result']);
         $database_results = $stmt->fetchAll();
         $results = view('pages.parser.tabular-results', [
             'database_results' => $database_results,
-            'sql_output' => $sanitized_string
+            'sql_output' => $result['result']
         ])->render();
         return response()->json($results);
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function sample_data(Request $request)
