@@ -17,40 +17,30 @@
             <div class="tab-pane fade show active" id="relational" role="tabpanel"
                  aria-labelledby="home-tab">
                 <div class="mt-3">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    @if(sizeof($database_results) > 0)
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                @foreach($database_results[0] as $key => $value)
+                                    <th scope="col">{{$key}}</th>
+                                @endforeach
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($database_results as $result)
+                                <tr>
+                                    @foreach($result as $key => $value)
+                                        <td>{{$value}}</td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
             </div>
-            <div class="tab-pane fade" id="sql" role="tabpanel" aria-labelledby="profile-tab">This will
-                display the generated SQL
+            <div class="tab-pane fade" id="sql" role="tabpanel" aria-labelledby="profile-tab">The SQL output will be:
+                <p><code>{{$sql_output}}</code></p>
             </div>
         </div>
     </div>

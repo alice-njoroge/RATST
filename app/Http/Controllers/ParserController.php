@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use PDO;
 
@@ -41,7 +42,25 @@ class ParserController extends Controller
      */
     public function execute(Request $request)
     {
-        $results = view('pages.parser.tabular-results')->render();
+        $this->validate($request, [
+            'database_name' => 'required',
+            'query' => 'required'
+        ]);
+        $client = new Client([
+            'base_uri' => 'localhost:5000',
+        ]);
+        $response = $client->request('GET', '/', [
+            'query' => ['query' => $request->input('query')]
+        ]);
+        $result = json_decode((string)$response->getBody(), true);
+        $pdo = $this->get_pdo($request->input('database_name'));
+        $sanitized_string = str_replace('"', '', $result['result']);
+        $stmt = $pdo->query($sanitized_string);
+        $database_results = $stmt->fetchAll();
+        $results = view('pages.parser.tabular-results', [
+            'database_results' => $database_results,
+            'sql_output' => $sanitized_string
+        ])->render();
         return response()->json($results);
     }
 
@@ -80,7 +99,7 @@ class ParserController extends Controller
      */
     public function index($database = 'themepark')
     {
-        return view('pages.parser.index', ['database' => $database, 'container_fluid' => true]);
+        return view('pages.parser.index', ['database_name' => $database, 'container_fluid' => true]);
     }
 
 }
