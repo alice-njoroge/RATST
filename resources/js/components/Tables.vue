@@ -41,7 +41,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -82,7 +81,7 @@
                 $('#displayDataModal').modal('show');
                 this.current_table_name = table_name;
                 this.current_database_name = database_name;
-                axios({
+                axios({ //http client for making ajax requests
                     method: 'post',
                     url: '/show-sample-data',
                     data: {
@@ -94,7 +93,7 @@
                         this.columns = response.data.columns;
                         this.data = response.data.data;
                         if (this.columns.length <= 5) {
-                            this.styleObject["max-width"] = '600px'
+                            this.styleObject["max-width"] = '700px'
                         } else {
                             this.styleObject["max-width"] = '1200px'
                         }

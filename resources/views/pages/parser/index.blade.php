@@ -110,7 +110,7 @@
         autoScrollEditorIntoView: true,
         copyWithEmptySelection: true,
       })
-      editor.setTheme("ace/theme/monokai")
+      editor.setTheme("ace/theme/eclipse")
       editor.session.setMode("ace/mode/text")
 
       $(window).ready(function () {
@@ -129,12 +129,12 @@
           var editor_value = editor.getValue()
           var database_name = $('#database_name').val()
           console.log(database_name)
-          $.ajaxSetup({
+          $.ajaxSetup({ // asynchronuous javascript and xml
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
           })
-          $.ajax({
+          $.ajax({ //execute the ajax request
             url: '{{route('execute_parser')}}',
             type: 'post',
             data: {

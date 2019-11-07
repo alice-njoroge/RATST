@@ -48,6 +48,7 @@ class ParserController extends Controller
             'database_name' => 'required',
             'query' => 'required'
         ]);
+        //initialize new  guzzle client with url
         $client = new Client([
             'base_uri' => 'localhost:5000',
         ]);
@@ -56,8 +57,8 @@ class ParserController extends Controller
         ]);
         $result = json_decode((string)$response->getBody(), true);
         $pdo = $this->get_pdo($request->input('database_name'));
-        $stmt = $pdo->query($result['result']);
-        $database_results = $stmt->fetchAll();
+        $stmt = $pdo->query($result['result']); // run the query against the initialized pdo
+        $database_results = $stmt->fetchAll(); // fetch db results
         $results = view('pages.parser.tabular-results', [
             'database_results' => $database_results,
             'sql_output' => $result['result']
