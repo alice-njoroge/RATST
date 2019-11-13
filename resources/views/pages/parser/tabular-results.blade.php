@@ -18,7 +18,7 @@
                  aria-labelledby="home-tab">
                 <div class="mt-3">
                     @if(sizeof($database_results) > 0)
-                        <table class="table table-responsive">
+                        <table class="table table-responsive" id="table_results">
                             <thead>
                             <tr>
                                 @foreach($database_results[0] as $key => $value)

@@ -150,6 +150,9 @@
             }
           }).done(function (response) {
             $('#results').html(response)
+            $('html, body').animate({
+              scrollTop: $("#table_results").offset().top
+            }, 2000);
           })
         })
 
