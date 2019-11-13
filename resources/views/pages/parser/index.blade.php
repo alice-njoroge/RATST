@@ -128,7 +128,7 @@
           } else {
             editor.insert(text)
           }
-          editor.focus();
+          editor.focus()
         })
 
         $("#execute").on('click', function (e) {
@@ -151,8 +151,8 @@
           }).done(function (response) {
             $('#results').html(response)
             $('html, body').animate({
-              scrollTop: $("#table_results").offset().top
-            }, 2000);
+              scrollTop: $("#h4_results").offset().top
+            }, 1000)
           })
         })
 
@@ -172,7 +172,7 @@
             } else {
               editor.insert(final_text)
             }
-              editor.focus();
+            editor.focus()
           })
         }, 1000)
       })
