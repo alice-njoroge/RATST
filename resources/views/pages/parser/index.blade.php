@@ -4,7 +4,7 @@
 @push('styles')
     <style type="text/css" media="screen">
         #editor {
-            height: 300px;
+            height: 350px;
             width: auto;
         }
     </style>
