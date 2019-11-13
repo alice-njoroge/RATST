@@ -112,6 +112,7 @@
       })
       editor.setTheme("ace/theme/eclipse")
       editor.session.setMode("ace/mode/text")
+      document.getElementById('editor').style.fontSize='20px';
 
       $(window).ready(function () {
         $(".symbol").on('click', function () {
@@ -120,7 +121,7 @@
           if (editor_text.includes('σ field = "filter" Π field (schema)')) {
             editor.setValue(text)
           } else {
-            editor.setValue(editor_text + text)
+            editor.insert(text)
           }
         })
 
