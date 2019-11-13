@@ -7,7 +7,7 @@
                 <p class="ml-1" v-for="item in tables"><b class="cursor table-selection">{{item.table}}</b><a
                     @click.prevent="view_data(item.table,database_name)" href="#!" class="float-right">view data</a>
                     <br/>
-                    <span class="ml-2 cursor table-selection" v-for="column in item.columns">{{column.field}} -  {{column.type}}<hr
+                    <span class="ml-2 cursor table-selection" v-for="column in item.columns">{{column.field}}-  {{column.type}}<hr
                         style="border-style: dotted;"/>
 
                     </span></p>

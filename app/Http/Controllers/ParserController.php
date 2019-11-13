@@ -61,7 +61,7 @@ class ParserController extends Controller
         $database_results = $stmt->fetchAll(); // fetch db results
         $results = view('pages.parser.tabular-results', [
             'database_results' => $database_results,
-            'sql_output' => $result['result']
+            'sql_output' => $result['result'].";"
         ])->render();
         return response()->json($results);
     }

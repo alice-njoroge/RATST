@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="sql" role="tabpanel" aria-labelledby="profile-tab">The SQL output will be:
-                <p><code>{{$sql_output}}</code></p>
+                <p><code style="color: #0f75da;">{{$sql_output}}</code></p>
             </div>
         </div>
     </div>

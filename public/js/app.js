@@ -38258,7 +38258,7 @@ var render = function() {
                     { staticClass: "ml-2 cursor table-selection" },
                     [
                       _vm._v(
-                        _vm._s(column.field) + " -  " + _vm._s(column.type)
+                        _vm._s(column.field) + "-  " + _vm._s(column.type)
                       ),
                       _c("hr", { staticStyle: { "border-style": "dotted" } })
                     ]

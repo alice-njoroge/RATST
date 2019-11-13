@@ -128,6 +128,7 @@
           } else {
             editor.insert(text)
           }
+          editor.focus();
         })
 
         $("#execute").on('click', function (e) {
@@ -168,6 +169,7 @@
             } else {
               editor.insert(final_text)
             }
+              editor.focus();
           })
         }, 1000)
       })
