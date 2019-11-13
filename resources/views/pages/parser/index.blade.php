@@ -116,7 +116,7 @@
       })
       editor.setTheme("ace/theme/eclipse")
       editor.session.setMode("ace/mode/text")
-      document.getElementById('editor').style.fontSize = '20px'
+      document.getElementById('editor').style.fontSize = '18px'
 
       $(window).ready(function () {
         $(".symbol").on('click', function () {
