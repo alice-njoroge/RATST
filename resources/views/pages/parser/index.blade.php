@@ -72,8 +72,8 @@
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">⧒ </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">⧓ </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">θ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">^ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">v </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">∧ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">∨ </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">( </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">) </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">< </span>|
