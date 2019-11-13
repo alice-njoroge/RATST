@@ -81,6 +81,7 @@
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">> </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">≥ </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">➡ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">, </span>|
                     </div>
                 </div>
             </div>
