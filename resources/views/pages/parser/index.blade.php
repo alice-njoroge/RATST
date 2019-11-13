@@ -57,15 +57,19 @@
             <div class="card">
                 <div class="card-body" style="padding: 0.25rem">
                     <div class="card-text">
-                        |<span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">π </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">σ </span>|
+                        |<span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                               data-placement="top" title="Projection">π </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="Selection">σ </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">ρ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">X </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">* </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">U </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">- </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">∩ </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">⋈ </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">θ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">^ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">v </span>|
                     </div>
                 </div>
             </div>
@@ -112,14 +116,15 @@
       })
       editor.setTheme("ace/theme/eclipse")
       editor.session.setMode("ace/mode/text")
-      document.getElementById('editor').style.fontSize='20px';
+      document.getElementById('editor').style.fontSize = '20px'
 
       $(window).ready(function () {
         $(".symbol").on('click', function () {
           var text = $(this).text()
           var editor_text = editor.getValue()
           if (editor_text.includes('σ field = "filter" Π field (schema)')) {
-            editor.setValue(text)
+            editor.setValue('')
+            editor.insert(text)
           } else {
             editor.insert(text)
           }
@@ -158,9 +163,10 @@
             }
             var editor_text = editor.getValue()
             if (editor_text.includes('σ field = "filter" Π field (schema)')) {
-              editor.setValue(final_text)
+              editor.setValue('')
+              editor.insert(final_text)
             } else {
-              editor.setValue(editor_text + final_text)
+              editor.insert(final_text)
             }
           })
         }, 1000)
