@@ -64,7 +64,7 @@
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">ρ </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">* </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">÷ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">U </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">∪ </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">- </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">∩ </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">⋈ </span>|
