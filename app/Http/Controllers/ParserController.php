@@ -215,6 +215,7 @@ class ParserController extends Controller
      */
     public function index($database = 'themepark')
     {
+//        return abort(400);
         return view('pages.parser.index', ['database_name' => $database, 'container_fluid' => true]);
     }
 
