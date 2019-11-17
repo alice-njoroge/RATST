@@ -24,25 +24,27 @@ class DesignedDatabasesController extends Controller
      */
     function get_pdo($database_name)
     {
-        $host = env('DB_HOST');
+        $host = config('database.connections.mysql.host');
         $db = $database_name;
-        $user = env('DB_USERNAME');
-        $pass = env('DB_PASSWORD');
-        $port = env('DB_PORT');
+        $user = config('database.connections.mysql.username');
+        $pass = config('database.connections.mysql.password');
+        $port = config('database.connections.mysql.port');
         $charset = 'utf8mb4';
 
         $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
+        logger($dsn);
         $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // choose failure with response not silently
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // return results in associative array
+            PDO::ATTR_EMULATE_PREPARES => false, // dont prepare statements automatically to avoid sql injection attacks
         ];
+//try to create a new pdo object but if there is an error catch and throw an exception
         try {
             $pdo = new PDO($dsn, $user, $pass, $options);
-        } catch (PDOException $e) {
-            throw new PDOException($e->getMessage(), (int)$e->getCode());
+        } catch (\PDOException $e) {
+            throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }
-        return $pdo;
+        return $pdo; // return pdo object if there was no error
     }
 
     /**
