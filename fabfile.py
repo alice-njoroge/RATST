@@ -13,7 +13,7 @@ def deploy():
     with cd(site_folder):
         _get_latest_source()
         _update_composer_packages()
-        _create_or_update_dotenv_live()
+#         _create_or_update_dotenv_live()
 #         _update_database()
         _optimize()
         _configure_folders()
@@ -69,7 +69,7 @@ def _create_main_server_folders():
 
 def _create_main_webserver_files():
     if not exists('/etc/nginx/sites-available/ratst'):
-        sudo('cp nginx.template.conf /etc/nginx/sites-available/nanocomputing')
-        sudo('ln -s /etc/nginx/sites-available/nanocomputing /etc/nginx/sites-enabled/nanocomputing')
+        sudo('cp nginx.template.conf /etc/nginx/sites-available/ratst')
+        sudo('ln -s /etc/nginx/sites-available/ratst /etc/nginx/sites-enabled/ratst')
         sudo('service nginx restart')
 
