@@ -4,7 +4,7 @@ from decouple import config
 from fabric.api import cd, run, local, sudo
 from fabric.contrib.files import exists, append
 
-REPO_URL = 'git@github.com:alice-njoroge/RATST.git'
+REPO_URL = 'https://github.com/alice-njoroge/RATST.git'
 
 
 def deploy():
@@ -14,7 +14,7 @@ def deploy():
         _get_latest_source()
         _update_composer_packages()
         _create_or_update_dotenv_live()
-        _update_database()
+#         _update_database()
         _optimize()
         _configure_folders()
         _create_main_server_folders()
