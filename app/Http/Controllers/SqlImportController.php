@@ -26,11 +26,11 @@ class SqlImportController extends Controller
      */
     function get_pdo($database_name)
     {
-        $host = env('DB_HOST');
+        $host = config('database.connections.mysql.host');
         $db = $database_name;
-        $user = env('DB_USERNAME');
-        $pass = env('DB_PASSWORD');
-        $port = env('DB_PORT');
+        $user = config('database.connections.mysql.username');
+        $pass = config('database.connections.mysql.password');
+        $port = config('database.connections.mysql.port');
         $charset = 'utf8mb4';
 
         $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
@@ -71,7 +71,7 @@ class SqlImportController extends Controller
             return redirect()->back()->withInput($request->all());
         }
         DB::statement('create database if not exists ' . $request->input('database'));
-        try{
+        try {
             $pdo = $this->get_pdo($request->input('database')); // cal get pdo to get a new pdo instance
             $pdo->exec(file_get_contents($request->file('sql_file'))); // execute the sql file against the database
         } catch (PDOException $exception) {
