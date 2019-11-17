@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use PDO;
+use PDOException;
 use Throwable;
 
 class ParserController extends Controller
@@ -40,6 +43,37 @@ class ParserController extends Controller
     private function rename_operation(Array $result, string $database_name)
     {
         if (array_key_exists('new_relation_name', $result)) {
+            $new_relation_name = $result['new_relation_name'];
+            $old_relation_name = $result['old_relation_name'];
+            $pdo = $this->get_pdo($database_name);
+            $rename_sql = "rename table {$old_relation_name} to {$new_relation_name}";
+            try {
+                $pdo->exec($rename_sql);
+                $database_results = [
+                    [
+                        'Key' => 'Old Table Name',
+
+                        'Value' => $old_relation_name
+                    ],
+                    [
+                        'Key' => 'New Table Name',
+
+                        'Value' => $new_relation_name
+                    ]
+                ];
+                return [
+                    'database_results' => $database_results,
+                    'sql_out' => $rename_sql . ';',
+                    'error_message' => ''
+                ];
+            } catch (PDOException $e) {
+                return [
+                    'database_results' => '',
+                    'sql_out' => '',
+                    'error_message' => $e->getMessage()
+                ];
+            }
+
         } else {
             $table_name = $result['relation_name'];
             $new_column_name = $result['new_attribute_name'];
@@ -51,30 +85,38 @@ class ParserController extends Controller
             $data_type = $columns[$key]['Type'];
             //Create sql column update statement
             $update_sql = "alter table {$table_name} change {$old_column_name} {$new_column_name} {$data_type}";
-            $pdo->exec($update_sql);
-            $database_results = [
-                [
-                    'Key' => 'Table',
+            try {
+                $pdo->exec($update_sql);
+                $database_results = [
+                    [
+                        'Key' => 'Table',
 
-                    'Value' => $table_name
-                ],
-                [
-                    'Key' => 'Old Column Name',
+                        'Value' => $table_name
+                    ],
+                    [
+                        'Key' => 'Old Column Name',
 
-                    'Value' => $old_column_name
-                ],
-                [
-                    'Key' => 'New  Column Name',
+                        'Value' => $old_column_name
+                    ],
+                    [
+                        'Key' => 'New  Column Name',
 
-                    'Value' => $new_column_name
-                ],
-            ];
-            return [
-                'database_results' => $database_results,
-                'sql_out' => $update_sql . ';'
-            ];
+                        'Value' => $new_column_name
+                    ],
+                ];
+                return [
+                    'database_results' => $database_results,
+                    'sql_out' => $update_sql . ';',
+                    'error_message' => ''
+                ];
+            } catch (PDOException $exception) {
+                return [
+                    'database_results' => '',
+                    'sql_out' => '',
+                    'error_message' => $exception->getMessage()
+                ];
+            }
         }
-        return [];
     }
 
     /**
@@ -93,23 +135,45 @@ class ParserController extends Controller
         $client = new Client([
             'base_uri' => 'localhost:5000',
         ]);
-        $response = $client->request('GET', '/', [
-            'query' => ['query' => $request->input('query')]
-        ]);
-        $result = json_decode((string)$response->getBody(), true);
-        if (gettype($result['result']) == 'array') {
-            $result = $this->rename_operation($result['result'], $database_name);
-            $database_results = $result['database_results'];
-            $sql_output = $result['sql_out'];
-        } else {
-            $pdo = $this->get_pdo($database_name);
-            $stmt = $pdo->query($result['result']); // run the query against the initialized pdo
-            $database_results = $stmt->fetchAll(); // fetch db results
-            $sql_output = $result['result'] . ";";
+        try {
+            $response = $client->request('GET', '/', [
+                'query' => ['query' => $request->input('query')]
+            ]);
+            $result = json_decode((string)$response->getBody(), true);
+            if (gettype($result['result']) == 'array') {
+                $result = $this->rename_operation($result['result'], $database_name);
+                $database_results = $result['database_results'];
+                $sql_output = $result['sql_out'];
+                $error_message = $result['error_message'];
+            } else {
+                try {
+                    $pdo = $this->get_pdo($database_name);
+                    $stmt = $pdo->query($result['result']); // run the query against the initialized pdo
+                    $database_results = $stmt->fetchAll(); // fetch db results
+                    $sql_output = $result['result'] . ";";
+                    $error_message = '';
+                } catch (PDOException $exception) {
+                    $database_results = '';
+                    $sql_output = '';
+                    $error_message = $exception->getMessage();
+                }
+            }
+        } catch (RequestException $exception) {
+            if ($exception->getCode() == 400) {
+                return json_decode($exception->getResponse()->getBody()->getContents());
+                $result = json_decode($exception->getResponse()->getBody()->getContents(), true);
+                return $result;
+            }
+            return $exception->getResponse();
+            $result = json_decode($exception->getResponse());
+            $database_results = '';
+            $sql_output = '';
+            $error_message = $exception->getMessage();
         }
         $results = view('pages.parser.tabular-results', [
             'database_results' => $database_results,
-            'sql_output' => $sql_output
+            'sql_output' => $sql_output,
+            'error_message' => $error_message
         ])->render();
         return response()->json($results);
     }
