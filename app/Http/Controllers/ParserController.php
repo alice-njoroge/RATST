@@ -135,7 +135,7 @@ class ParserController extends Controller
         $database_name = $request->input('database_name');
         //initialize new  guzzle client with url
         $client = new Client([
-            'base_uri' => 'localhost:5000',
+            'base_uri' => config('app.api_url'),
         ]);
         try {
             $response = $client->request('GET', '/', [
