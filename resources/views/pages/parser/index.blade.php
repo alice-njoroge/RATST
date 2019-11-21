@@ -61,27 +61,44 @@
                                data-placement="top" title="Projection">π </span>|
                         <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
                               data-placement="top" title="Selection">σ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">ρ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">* </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">÷ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">∪ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">- </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">∩ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">⋈ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">⧑ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">⧒ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">⧓ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">θ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">∧ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">∨ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">( </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">) </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">< </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">≤ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">> </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">≥ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">➡ </span>|
-                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol">, </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="Rename">ρ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol"data-toggle="tooltip"
+                              data-placement="top" title="Cartesian Product">* </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="Division">÷ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="Union" >∪ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="Set Difference" >- </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="Intersection">∩ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="Join">⋈ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol"data-toggle="tooltip"
+                              data-placement="top" title="Left Join">⧑ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="Right Join">⧒ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="Full Join">⧓ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="OR operation">∧ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="AND operation">∨ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="Opening bracket">( </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="closing bracket">) </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="less than">< </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="less than or equal to ">≤ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="greater than">> </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="greater than or equal to">≥ </span>|
+                        <span style="cursor: pointer;padding: 0 10px 0 10px" class="symbol" data-toggle="tooltip"
+                              data-placement="top" title="comma">, </span>|
                     </div>
                 </div>
             </div>
