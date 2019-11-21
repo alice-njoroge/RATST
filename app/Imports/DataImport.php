@@ -48,7 +48,9 @@ class DataImport implements ToCollection
     public function collection(Collection $collection)
     {
         $pdo = $this->get_pdo(session()->get('database_name'));
+        // create the table
         $create_statement = 'create table if not exists ' . session()->get('schema_name') . '(';
+        // use headings as table attributes
         foreach ($collection[0] as $index => $item) {
             if ($index != sizeof($collection[0]) - 1) { //
                 $create_statement = $create_statement . Str::slug($item, '_') . ' varchar(255),';

@@ -38,7 +38,7 @@
                             <label for="excell_sheet">Upload the excel file</label>
                             <input name="excel_sheet" type="file" class="form-control-file" id="excell_sheet">
                         </div>
-                        <button type="submit" class="btn btn-outline-primary">submit</button>
+                        <button type="submit" class="btn btn-primary">submit</button>
                     </form>
                 </div>
             </div>

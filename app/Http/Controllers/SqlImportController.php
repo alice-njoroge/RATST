@@ -83,6 +83,5 @@ class SqlImportController extends Controller
         flash('SQL imported successfully')->success();
         $redirect_to = route('parser') . '/' . $request->input('database');
         return redirect($redirect_to);
-
     }
 }
