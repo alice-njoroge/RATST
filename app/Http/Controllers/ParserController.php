@@ -148,29 +148,23 @@ class ParserController extends Controller
                 $sql_output = $result['sql_out'];
                 $error_message = $result['error_message'];
             } else {
-                try {
-                    $pdo = $this->get_pdo($database_name);
-                    $stmt = $pdo->query($result['result']); // run the query against the initialized pdo
-                    $database_results = $stmt->fetchAll(); // fetch db results
-                    $sql_output = $result['result'] . ";";
-                    $error_message = '';
-                } catch (PDOException $exception) {
-                    $database_results = '';
-                    $sql_output = '';
-                    $error_message = $exception->getMessage();
-                }
+                $pdo = $this->get_pdo($database_name);
+                $stmt = $pdo->query($result['result']); // run the query against the initialized pdo
+                $database_results = $stmt->fetchAll(); // fetch db results
+                $sql_output = $result['result'] . ";";
+                $error_message = '';
             }
-        } catch (RequestException $exception) {
-            if ($exception->getCode() == 400) {
-                return json_decode($exception->getResponse()->getBody()->getContents());
-                $result = json_decode($exception->getResponse()->getBody()->getContents(), true);
-                return $result;
-            }
-            return $exception->getResponse();
-            $result = json_decode($exception->getResponse());
+        } catch (PDOException $exception) {
             $database_results = '';
             $sql_output = '';
             $error_message = $exception->getMessage();
+        } catch (RequestException $exception) {
+            if ($exception->getCode() == 400) {
+                $result = json_decode($exception->getResponse()->getBody()->getContents(), true);
+                $database_results = '';
+                $sql_output = '';
+                $error_message = $result['error_message'];
+            }
         }
         $results = view('pages.parser.tabular-results', [
             'database_results' => $database_results,
