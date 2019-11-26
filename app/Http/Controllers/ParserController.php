@@ -50,7 +50,6 @@ class ParserController extends Controller
             $pdo = $this->get_pdo($database_name);
             $rename_sql = "rename table {$old_relation_name} to {$new_relation_name}";
             try {
-                $pdo->exec($rename_sql);
                 $database_results = [
                     [
                         'Key' => 'Old Table Name',
@@ -88,7 +87,6 @@ class ParserController extends Controller
             //Create sql column update statement
             $update_sql = "alter table {$table_name} change {$old_column_name} {$new_column_name} {$data_type}";
             try {
-                $pdo->exec($update_sql);
                 $database_results = [
                     [
                         'Key' => 'Table',
