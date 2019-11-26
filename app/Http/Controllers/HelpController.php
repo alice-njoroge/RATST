@@ -49,4 +49,9 @@ class HelpController extends Controller
         return view('pages.help.join', ['container_fluid' => true]);
     }
 
+    public function about_the_developer()
+    {
+        return view('pages.help.about-the-developer');
+    }
+
 }
