@@ -55,6 +55,7 @@ Route::get('/set-difference', 'HelpController@difference')->name('diff');
 Route::get('/intersection', 'HelpController@intersection')->name('intersection');
 Route::get('/product', 'HelpController@product')->name('product');
 Route::get('/join', 'HelpController@join')->name('join');
+Route::get('/about-the-developer', 'HelpController@about_the_developer')->name('about_the_developer');
 
 // this line must be last
 Route::get('/{database?}', 'ParserController@index')->name('parser');
