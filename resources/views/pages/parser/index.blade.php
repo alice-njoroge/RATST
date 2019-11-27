@@ -178,7 +178,7 @@
               'query': editor_value
             }
           }).done(function (response) {
-            $('#results').html(response) //push results to the results card
+            $('#results').html(response)
             $('html, body').animate({
               scrollTop: $("#h4_results").offset().top
             }, 1000)
